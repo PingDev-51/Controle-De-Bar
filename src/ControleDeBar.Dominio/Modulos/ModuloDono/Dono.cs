@@ -12,6 +12,8 @@ public class Dono : EntidadeBase<Dono>
     public string Senha { get; set; } = string.Empty;
     // public Estabelecimento Estabelecimento { get; set; } = string.Empty;
 
+    public Dono() { }
+
     public Dono(string nome, string email, string senha)
     {
         Nome = nome;

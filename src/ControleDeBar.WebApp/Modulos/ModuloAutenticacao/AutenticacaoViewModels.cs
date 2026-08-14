@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace GeradorDeProvas.WebApp.Modulos.ModuloAutenticacao;
+namespace ControleDeBar.WebApp.Modulos.ModuloAutenticacao;
 
 public record RegistrarViewModel
 {

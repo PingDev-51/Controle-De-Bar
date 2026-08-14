@@ -1,4 +1,4 @@
-namespace GeradorDeProvas.WebApp.Compartilhado.Mapping;
+namespace ControleDeBar.WebApp.Compartilhado.Mapping;
 
 public sealed class AutoMapperOptions
 {

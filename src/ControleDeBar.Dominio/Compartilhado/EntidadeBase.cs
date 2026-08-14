@@ -1,4 +1,4 @@
-namespace GeradorDeProvas.Dominio.Compartilhado;
+namespace ControleDeBar.Dominio.Compartilhado;
 
 public abstract class EntidadeBase<T>
 {

@@ -1,14 +1,12 @@
-using GeradorDeProvas.Aplicacao;
-using GeradorDeProvas.Infra;
-using GeradorDeProvas.Infra.Compartilhado.Orm;
-using GeradorDeProvas.WebApp.Compartilhado;
+using ControleDeBar.Aplicacao;
+using ControleDeBar.Infra;
+using ControleDeBar.Infra.Compartilhado.Orm;
+using ControleDeBar.WebApp.Compartilhado;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
-using QuestPDF.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
-QuestPDF.Settings.License = LicenseType.Community;
 
 // Configuração do container de injeção de dependência
 builder.Services.AddInfraRepositories(
@@ -22,7 +20,7 @@ builder.Services.AddPresentationConfig(builder.Configuration);
 
 // Configura health checks do banco de dados
 builder.Services.AddHealthChecks()
-    .AddDbContextCheck<GeradorDeProvasDbContext>(
+    .AddDbContextCheck<ControleDeBarDbContext>(
         name: "database_check",
         failureStatus: HealthStatus.Unhealthy,
         tags: ["ready"]
@@ -35,7 +33,7 @@ if (app.Environment.IsDevelopment())
 {
     using var scope = app.Services.CreateScope();
 
-    var dbContext = scope.ServiceProvider.GetRequiredService<GeradorDeProvasDbContext>();
+    var dbContext = scope.ServiceProvider.GetRequiredService<ControleDeBarDbContext>();
 
     dbContext.Database.Migrate();
 }

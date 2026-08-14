@@ -4,7 +4,7 @@ using Serilog;
 using Serilog.Core;
 using Serilog.Events;
 
-namespace GeradorDeProvas.Infra.Compartilhado.Logging;
+namespace ControleDeBar.Infra.Compartilhado.Logging;
 
 public static class SerilogFactory
 {
@@ -13,7 +13,7 @@ public static class SerilogFactory
         string caminhoAppData = Environment
             .GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 
-        string caminhoDiretorio = Path.Combine(caminhoAppData, "GeradorDeProvas");
+        string caminhoDiretorio = Path.Combine(caminhoAppData, "ControleDeBar");
 
         Directory.CreateDirectory(caminhoDiretorio);
 

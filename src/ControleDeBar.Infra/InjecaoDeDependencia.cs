@@ -1,22 +1,13 @@
-using GeradorDeProvas.Infra.Compartilhado.Logging;
-using GeradorDeProvas.Infra.Compartilhado.Orm;
-using GeradorDeProvas.Dominio.Modulos.ModuloDisciplina;
-using GeradorDeProvas.Dominio.Modulos.ModuloMateria;
-using GeradorDeProvas.Dominio.Modulos.ModuloQuestao;
-using GeradorDeProvas.Infra.Modulos.ModuloDisciplina;
-using GeradorDeProvas.Infra.Modulos.ModuloMateria;
-using GeradorDeProvas.Infra.Modulos.ModuloQuestao;
+using ControleDeBar.Infra.Compartilhado.Logging;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Serilog;
-using GeradorDeProvas.Dominio.Modulos.ModuloProva;
-using GeradorDeProvas.Infra.Modulos.ModuloProva;
 using Microsoft.Extensions.Hosting;
 
-namespace GeradorDeProvas.Infra;
+namespace ControleDeBar.Infra;
 
 public static class InjecaoDeDependencia
 {
@@ -35,7 +26,7 @@ public static class InjecaoDeDependencia
         services.AddSerilog(logger, dispose: true);
 
         // Injeta o DbContext do EF
-        services.AddDbContext<GeradorDeProvasDbContext>(options =>
+        services.AddDbContext<ControleDeBarDbContext>(options =>
         {
             string? connectionString = configuration.GetConnectionString("SqlServerEF");
 
@@ -67,7 +58,7 @@ public static class InjecaoDeDependencia
             options.Lockout.AllowedForNewUsers = true;
         })
         .AddRoles<IdentityRole<Guid>>() // Configuração de Cargos/Papéis no Identity
-        .AddEntityFrameworkStores<GeradorDeProvasDbContext>() // Integração com EntityFramework
+        .AddEntityFrameworkStores<ControleDeBarDbContext>() // Integração com EntityFramework
         .AddSignInManager() // Configuração do SignInManager
         .AddDefaultTokenProviders();
 

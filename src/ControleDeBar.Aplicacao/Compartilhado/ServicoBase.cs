@@ -1,7 +1,7 @@
-using GeradorDeProvas.Dominio.Compartilhado;
+using ControleDeBar.Dominio.Compartilhado;
 using FluentResults;
 
-namespace GeradorDeProvas.Aplicacao.Compartilhado;
+namespace ControleDeBar.Aplicacao.Compartilhado;
 
 public abstract class ServicoBase<T> where T : EntidadeBase<T>
 {

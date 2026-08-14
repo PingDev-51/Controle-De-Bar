@@ -18,8 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GeradorDeProvas.Aplicacao\GeradorDeProvas.Aplicacao.csproj" />
-    <ProjectReference Include="..\GeradorDeProvas.Infra\GeradorDeProvas.Infra.csproj" />
+    <ProjectReference Include="..\ControleDeBar.Aplicacao\ControleDeBar.Aplicacao.csproj" />
+    <ProjectReference Include="..\ControleDeBar.Infra\ControleDeBar.Infra.csproj" />
   </ItemGroup>
 
 </Project>

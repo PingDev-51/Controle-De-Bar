@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace GeradorDeProvas.WebApp.Compartilhado;
+namespace ControleDeBar.WebApp.Compartilhado;
 
 public class HomeController : Controller
 {

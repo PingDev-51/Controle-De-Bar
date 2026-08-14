@@ -1,7 +1,7 @@
 using FluentResults;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
-namespace GeradorDeProvas.WebApp.Compartilhado.Extensions;
+namespace ControleDeBar.WebApp.Compartilhado.Extensions;
 
 public static class TempDataExtensions
 {

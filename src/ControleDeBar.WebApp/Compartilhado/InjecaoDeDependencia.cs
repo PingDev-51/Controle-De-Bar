@@ -1,10 +1,10 @@
-using GeradorDeProvas.Dominio.Compartilhado.Identity;
-using GeradorDeProvas.WebApp.Compartilhado.Identity;
-using GeradorDeProvas.WebApp.Compartilhado.Mapping;
+using ControleDeBar.Dominio.Compartilhado.Identity;
+using ControleDeBar.WebApp.Compartilhado.Identity;
+using ControleDeBar.WebApp.Compartilhado.Mapping;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 
-namespace GeradorDeProvas.WebApp.Compartilhado;
+namespace ControleDeBar.WebApp.Compartilhado;
 
 public static class InjecaoDeDependencia
 {

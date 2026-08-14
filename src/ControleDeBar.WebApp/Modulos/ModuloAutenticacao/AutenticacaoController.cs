@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GeradorDeProvas.WebApp.Modulos.ModuloAutenticacao;
+namespace ControleDeBar.WebApp.Modulos.ModuloAutenticacao;
 
 [AllowAnonymous]
 public sealed class AutenticacaoController(

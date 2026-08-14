@@ -1,4 +1,4 @@
-namespace GeradorDeProvas.Infra.Compartilhado.Logging;
+namespace ControleDeBar.Infra.Compartilhado.Logging;
 
 public sealed class NewRelicOptions
 {

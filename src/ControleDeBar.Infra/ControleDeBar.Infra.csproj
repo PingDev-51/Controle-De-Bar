@@ -20,6 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../GeradorDeProvas.Dominio/GeradorDeProvas.Dominio.csproj" />
+    <ProjectReference Include="../ControleDeBar.Dominio/ControleDeBar.Dominio.csproj" />
   </ItemGroup>
 </Project>

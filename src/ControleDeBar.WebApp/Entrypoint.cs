@@ -1,2 +1,3 @@
-namespace GeradorDeProvas.WebApp;
+namespace ControleDeBar.WebApp;
+
 public sealed class Entrypoint;

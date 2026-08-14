@@ -1,7 +1,7 @@
 using System.Security.Claims;
-using GeradorDeProvas.Dominio.Compartilhado.Identity;
+using ControleDeBar.Dominio.Compartilhado.Identity;
 
-namespace GeradorDeProvas.WebApp.Compartilhado.Identity;
+namespace ControleDeBar.WebApp.Compartilhado.Identity;
 
 public sealed class ProvedorDeUsuario(IHttpContextAccessor httpContextAccessor) : IProvedorDeUsuario
 {

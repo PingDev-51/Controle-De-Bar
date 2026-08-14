@@ -6,6 +6,7 @@
     <Project Path="src/ControleDeBar.WebApp/ControleDeBar.WebApp.csproj" />
   </Folder>
   <Folder Name="/tests/">
+    <Project Path="tests/Controle-De-Bar.Testes.E2E/Controle-De-Bar.Testes.E2E.csproj" />
     <Project Path="tests/Controle-De-Bar.Testes.Integracao/Controle-De-Bar.Testes.Integracao.csproj" />
     <Project Path="tests/Controle-De-Bar.Testes.Unidade/Controle-De-Bar.Testes.Unidade.csproj" />
   </Folder>

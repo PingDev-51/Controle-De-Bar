@@ -2,6 +2,7 @@ using ControleDeBar.Aplicacao;
 using ControleDeBar.Infra;
 using ControleDeBar.Infra.Compartilhado.Orm;
 using ControleDeBar.WebApp.Compartilhado;
+using GeradorDeProvas.Infra.Compartilhado.Orm;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 

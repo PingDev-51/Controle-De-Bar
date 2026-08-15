@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Microsoft.Extensions.Hosting;
+using GeradorDeProvas.Infra.Compartilhado.Orm;
 
 namespace ControleDeBar.Infra;
 
@@ -62,9 +63,12 @@ public static class InjecaoDeDependencia
         .AddSignInManager() // Configuração do SignInManager
         .AddDefaultTokenProviders();
 
-        services.AddScoped<IRepositorioDisciplina, RepositorioDisciplinaEmOrm>();
-        services.AddScoped<IRepositorioMateria, RepositorioMateriaEmOrm>();
-        services.AddScoped<IRepositorioQuestao, RepositorioQuestaoEmOrm>();
-        services.AddScoped<IRepositorioProva, RepositorioProvaEmOrm>();
+
+       
+        //Adicionar os modulos aqui <---------
+        // services.AddScoped<IRepositorioDisciplina, RepositorioDisciplinaEmOrm>();
+        // services.AddScoped<IRepositorioMateria, RepositorioMateriaEmOrm>();
+        // services.AddScoped<IRepositorioQuestao, RepositorioQuestaoEmOrm>();
+        // services.AddScoped<IRepositorioProva, RepositorioProvaEmOrm>();
     }
 }

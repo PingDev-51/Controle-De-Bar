@@ -8,6 +8,11 @@
 <form class="card border-primary-subtle shadow-sm mx-auto p-4" style="max-width: 620px;" asp-action="Registrar" method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger small fw-semibold mb-3"></div>
 
+    <div class="mb-3">
+        <label asp-for="Estabelecimento" class="form-label fw-semibold text-primary text-uppercase small"></label>
+        <input asp-for="Estabelecimento" type="text" class="form-control">
+        <span asp-validation-for="Estabelecimento" class="text-danger small fw-semibold"></span>
+    </div>
 
     <div class="mb-3">
         <label asp-for="Email" class="form-label fw-semibold text-primary text-uppercase small">E-mail</label>

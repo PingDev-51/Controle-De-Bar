@@ -4,6 +4,10 @@ namespace ControleDeBar.WebApp.Modulos.ModuloAutenticacao;
 
 public record RegistrarViewModel
 {
+    [Required(ErrorMessage = "O campo \"Estabelecimento\" deve ser preenchido.")]
+    [StringLength(100, ErrorMessage = "O campo \"Estabelecimento\" deve conter no máximo 100 caracteres.")]
+    public string Estabelecimento { get; init; } = string.Empty;
+
     [Required(ErrorMessage = "O campo \"E-mail\" deve ser preenchido.")]
     [EmailAddress(ErrorMessage = "O campo \"E-mail\" deve conter um endereço de e-mail válido.")]
     [StringLength(256, ErrorMessage = "O campo \"E-mail\" deve conter no máximo 256 caracteres.")]
@@ -19,6 +23,7 @@ public record RegistrarViewModel
     [Compare(nameof(Senha), ErrorMessage = "As senhas não conferem.")]
     public string ConfirmarSenha { get; init; } = string.Empty;
 }
+
 
 public record EntrarViewModel
 {

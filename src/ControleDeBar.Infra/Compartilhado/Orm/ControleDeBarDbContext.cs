@@ -1,5 +1,6 @@
 using System.Reflection;
 using ControleDeBar.Dominio.Compartilhado.Identity;
+using ControleDeBar.Dominio.Modulos.ModuloProduto;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -11,11 +12,10 @@ public sealed class ControleDeBarDbContext(
     IProvedorDeUsuario? userProvider = null
 ) : IdentityDbContext<IdentityUser<Guid>, IdentityRole<Guid>, Guid>(options)
 {
-   
+    public DbSet<Produto> Produtos => Set<Produto>();
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        //Adiconar modulos aqui <------
-
         base.OnModelCreating(modelBuilder);
 
         Assembly assembly = typeof(ControleDeBarDbContext).Assembly;
@@ -26,7 +26,8 @@ public sealed class ControleDeBarDbContext(
         // O EF faz cachê do OnModelCreating e variáveis locais não são atualizadas
         if (userProvider is not null)
         {
-           //Adiconar modulos aqui <------
+            modelBuilder.Entity<Produto>()
+                .HasQueryFilter(d => d.UserId == userProvider.Id);
         }
     }
 

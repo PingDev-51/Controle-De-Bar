@@ -13,7 +13,7 @@ public sealed class ControleDeBarDbContext(
 ) : IdentityDbContext<IdentityUser<Guid>, IdentityRole<Guid>, Guid>(options)
 {
     public DbSet<Produto> Produtos => Set<Produto>();
-
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);

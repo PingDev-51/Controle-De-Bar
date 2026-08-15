@@ -5,6 +5,7 @@ namespace ControleDeBar.Dominio.Modulos.ModuloGarcon;
 
 public class Garcon : EntidadeBase<Garcon>
 {
+    public Guid UserId { get; set; }
     public string Nome { get; set; } = string.Empty;
     //Add o estabelecimento mais tarde
 

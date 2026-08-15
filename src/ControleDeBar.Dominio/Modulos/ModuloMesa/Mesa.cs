@@ -5,6 +5,7 @@ namespace ControleDeBar.Dominio.Modulos.ModuloMesa;
 
 public class Mesa : EntidadeBase<Mesa>
 {
+    public Guid UserId { get; set; }
     public string NumeroDaMesa { get; set; } = string.Empty;
     public string QuantidadeDeLugares { get; set; } = string.Empty;
     public string Senha { get; set; } = string.Empty;

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ControleDeBar.Infra.Compartilhado.Orm.Migrations
 {
     [DbContext(typeof(ControleDeBarDbContext))]
-    [Migration("20260815042651_ConfigExemplo")]
+    [Migration("20260815141431_ConfigExemplo")]
     partial class ConfigExemplo
     {
         /// <inheritdoc />
@@ -24,6 +24,33 @@ namespace ControleDeBar.Infra.Compartilhado.Orm.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("ControleDeBar.Dominio.Modulos.ModuloProduto.Produto", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<decimal>("Preco")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id")
+                        .HasName("PK_TBProduto");
+
+                    b.HasIndex("UserId", "Nome")
+                        .IsUnique()
+                        .HasDatabaseName("UQ_TBProduto_UserId_Nome");
+
+                    b.ToTable("TBProduto", (string)null);
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
                 {

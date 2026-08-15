@@ -7,6 +7,8 @@ using Microsoft.Extensions.Logging;
 using Serilog;
 using Microsoft.Extensions.Hosting;
 using GeradorDeProvas.Infra.Compartilhado.Orm;
+using ControleDeBar.Dominio.Modulos.ModuloProduto;
+using ControleDeBar.Infra.Modulos.ModuloProduto;
 
 namespace ControleDeBar.Infra;
 
@@ -66,7 +68,7 @@ public static class InjecaoDeDependencia
 
        
         //Adicionar os modulos aqui <---------
-        // services.AddScoped<IRepositorioDisciplina, RepositorioDisciplinaEmOrm>();
+        services.AddScoped<IRepositorioProduto, RepositorioProdutoEmOrm>();
         // services.AddScoped<IRepositorioMateria, RepositorioMateriaEmOrm>();
         // services.AddScoped<IRepositorioQuestao, RepositorioQuestaoEmOrm>();
         // services.AddScoped<IRepositorioProva, RepositorioProvaEmOrm>();

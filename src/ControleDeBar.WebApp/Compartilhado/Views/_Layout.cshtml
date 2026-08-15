@@ -23,6 +23,8 @@
                 @if (User.Identity?.IsAuthenticated == true)
                 {
                     <div class="navbar-nav ms-auto">
+                        <a class="nav-link" asp-controller="Home" asp-action="Index">Início</a>
+                        <a class="nav-link" asp-controller="Produto" asp-action="Listar">Produtos</a>
                     </div>
 
                     <div class="dropdown ms-3">

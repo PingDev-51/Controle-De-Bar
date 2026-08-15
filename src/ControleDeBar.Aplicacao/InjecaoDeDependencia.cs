@@ -1,3 +1,4 @@
+using ControleDeBar.Aplicacao.Modulos.ModuloProduto;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,7 +11,7 @@ public static class InjecaoDeDependencia
         IConfiguration configuration
     )
     {
-        // services.AddScoped<ServicoDisciplina>();
+        services.AddScoped<ServicoProduto>();
         // services.AddScoped<ServicoMateria>();
         // services.AddScoped<ServicoQuestao>();
         // services.AddScoped<ServicoProva>();

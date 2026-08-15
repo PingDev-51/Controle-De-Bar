@@ -24,6 +24,7 @@ public sealed class ProdutoConfiguration : IEntityTypeConfiguration<Produto>
             .IsRequired();
 
         builder.Property(p => p.Preco)
+            .HasPrecision(18, 2)
            .IsRequired();
 
         builder.HasIndex(p => new { p.UserId, p.Nome })

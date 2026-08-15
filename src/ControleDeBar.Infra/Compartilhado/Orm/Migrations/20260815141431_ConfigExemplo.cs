@@ -51,6 +51,20 @@ namespace ControleDeBar.Infra.Compartilhado.Orm.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TBProduto",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Nome = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Preco = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TBProduto", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -194,6 +208,12 @@ namespace ControleDeBar.Infra.Compartilhado.Orm.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "UQ_TBProduto_UserId_Nome",
+                table: "TBProduto",
+                columns: new[] { "UserId", "Nome" },
+                unique: true);
         }
 
         /// <inheritdoc />
@@ -213,6 +233,9 @@ namespace ControleDeBar.Infra.Compartilhado.Orm.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "TBProduto");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

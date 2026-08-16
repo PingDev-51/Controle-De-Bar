@@ -2,4 +2,4 @@ using ControleDeBar.Dominio.Compartilhado;
 
 namespace ControleDeBar.Dominio.Modulos.ModuloContas;
 
-public interface IRepositorioContas : IRepositorio<Contas>;
+public interface IRepositorioContas : IRepositorio<Conta>;

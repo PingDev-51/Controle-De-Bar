@@ -6,7 +6,7 @@ using ControleDeBar.Dominio.Modulos.ModuloMesa;
 
 namespace ControleDeBar.Dominio.Modulos.ModuloContas;
 
-public class Contas : EntidadeBase<Contas>
+public class Conta : EntidadeBase<Conta>
 {
     public Guid UserId { get; set; }
     public Garcon? Garcon { get; set; }
@@ -15,16 +15,16 @@ public class Contas : EntidadeBase<Contas>
     public Situacao Situacao { get; set; }
     public Mesa? Mesa { get; set; }
 
-    public Contas() { }
+    public Conta() { }
 
-    public Contas(string nomeCliente) : this()
+    public Conta(string nomeCliente) : this()
     {
         NomeCliente = nomeCliente;
         DataAbertura = DateTime.Now;
         Situacao = Situacao.Aberta;
     }
 
-    public override void Atualizar(Contas entidadeAtualizada)
+    public override void Atualizar(Conta entidadeAtualizada)
     {
         NomeCliente = entidadeAtualizada.NomeCliente;
         DataAbertura = entidadeAtualizada.DataAbertura;

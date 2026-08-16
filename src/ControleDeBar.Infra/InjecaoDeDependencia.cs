@@ -9,10 +9,15 @@ using Microsoft.Extensions.Hosting;
 using GeradorDeProvas.Infra.Compartilhado.Orm;
 using ControleDeBar.Dominio.Modulos.ModuloProduto;
 using ControleDeBar.Infra.Modulos.ModuloProduto;
+<<<<<<< HEAD
 using ControleDeBar.Dominio.Modulos.ModuloMesa;
 using ControleDeBar.Infra.Modulos.ModuloMesa;
 using ControleDeBar.Dominio.Modulos.ModuloGarcon;
 using ControleDeBar.Infra.Modulos.ModuloGarcon;
+=======
+using ControleDeBar.Dominio.Modulos.ModuloContas;
+using ControleDeBar.Infra.Modulos.ModuloContas;
+>>>>>>> 3da9db2 (add: implement Conta module with CRUD operations, including repository and DTOs)
 
 namespace ControleDeBar.Infra;
 

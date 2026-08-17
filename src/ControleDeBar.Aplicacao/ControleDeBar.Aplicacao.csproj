@@ -12,6 +12,5 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ControleDeBar.Dominio\ControleDeBar.Dominio.csproj" />
-    <ProjectReference Include="..\ControleDeBar.WebApp\ControleDeBar.WebApp.csproj" />
   </ItemGroup>
 </Project>

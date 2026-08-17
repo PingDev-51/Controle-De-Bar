@@ -84,4 +84,32 @@ public class GarconController(ServicoGarcon servicoGarcon, IMapper mapeador) : C
 
         return RedirectToAction(nameof(Listar));
     }
+
+    [HttpGet]
+    public ActionResult Excluir(Guid id)
+    {
+        Result<DetalhesGarconDto> resultado = servicoGarcon.SelecionarPorId(id);
+
+        if (resultado.IsFailed)
+        {
+            TempData.AddErrorMessage(resultado);
+
+            return RedirectToAction(nameof(Listar));
+        }
+
+        ExcluirGarconViewModel excluirVm = mapeador.Map<ExcluirGarconViewModel>(resultado.Value);
+
+        return View(excluirVm);
+    }
+
+    [HttpPost]
+    public ActionResult Excluir(ExcluirGarconViewModel excluirVm)
+    {
+        Result resultado = servicoGarcon.Excluir(excluirVm.Id);
+
+        if (resultado.IsFailed)
+            TempData.AddErrorMessage(resultado);
+
+        return RedirectToAction(nameof(Listar));
+    }
 }

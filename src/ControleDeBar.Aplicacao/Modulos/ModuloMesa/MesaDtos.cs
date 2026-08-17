@@ -15,3 +15,23 @@ public record CadastrarMesaDto(
     int StatusDaMesa
 );
 
+public record EditarMesaDto(
+    Guid Id,
+    string NumeroDaMesa,
+    string QuantidadeDeLugares,
+    int StatusDaMesa
+);
+public record ExcluirMesaDto(
+    Guid Id,
+    string NumeroDaMesa,
+    string QuantidadeDeLugares,
+    StatusDaMesa StatusDaMesa
+);
+
+public record DetalhesMesaDto(
+    Guid Id,
+    string NumeroDaMesa,
+    string QuantidadeDeLugares,
+    StatusDaMesa StatusDaMesa
+);
+

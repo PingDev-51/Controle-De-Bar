@@ -50,6 +50,9 @@ namespace ControleDeBar.Infra.Compartilhado.Orm.Migrations
                         .HasName("PK_TBMesa");
 
                     b.ToTable("TBMesa", (string)null);
+                    b.HasKey("Id");
+
+                    b.ToTable("Mesa");
                 });
 
             modelBuilder.Entity("ControleDeBar.Dominio.Modulos.ModuloProduto.Produto", b =>
@@ -274,6 +277,27 @@ namespace ControleDeBar.Infra.Compartilhado.Orm.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("ControleDeBar.Dominio.Modulos.ModuloContas.Conta", b =>
+                {
+                    b.HasOne("ControleDeBar.Dominio.Modulos.ModuloGarcon.Garcon", "Garcon")
+                        .WithMany()
+                        .HasForeignKey("GarconId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
+                        .HasConstraintName("FK_TBContas_TBGarcon");
+
+                    b.HasOne("ControleDeBar.Dominio.Modulos.ModuloMesa.Mesa", "Mesa")
+                        .WithMany()
+                        .HasForeignKey("MesaId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
+                        .HasConstraintName("FK_TBContas_TBMesa");
+
+                    b.Navigation("Garcon");
+
+                    b.Navigation("Mesa");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>

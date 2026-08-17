@@ -47,4 +47,41 @@ public class GarconController(ServicoGarcon servicoGarcon, IMapper mapeador) : C
 
         return RedirectToAction(nameof(Listar));
     }
+
+    [HttpGet]
+    public ActionResult Editar(Guid id)
+    {
+        Result<DetalhesGarconDto> resultado = servicoGarcon.SelecionarPorId(id);
+
+        if (resultado.IsFailed)
+        {
+            TempData.AddErrorMessage(resultado);
+
+            return RedirectToAction(nameof(Listar));
+        }
+
+        EditarGarconViewModel editarVm = mapeador.Map<EditarGarconViewModel>(resultado.Value);
+
+        return View(editarVm);
+    }
+
+    [HttpPost]
+    public ActionResult Editar(EditarGarconViewModel editarVm)
+    {
+        if (!ModelState.IsValid)
+            return View(editarVm);
+
+        EditarGarconDto dto = mapeador.Map<EditarGarconDto>(editarVm);
+
+        Result resultado = servicoGarcon.Editar(dto);
+
+        if (resultado.IsFailed)
+        {
+            ModelState.AddModelError(resultado);
+
+            return View(editarVm);
+        }
+
+        return RedirectToAction(nameof(Listar));
+    }
 }

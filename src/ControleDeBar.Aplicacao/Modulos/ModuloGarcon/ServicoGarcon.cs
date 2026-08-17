@@ -22,41 +22,34 @@ public class ServicoGarcon(IRepositorioGarcon repositorioGarcon) : ServicoBase<G
         return Result.Ok();
     }
 
-    // public Result Editar(EditarMesaDto dto)
-    // {
-    //     StatusDaMesa tipoDeStatus = 0;
+    public Result Editar(EditarGarconDto dto)
+    {
+        Garcon garconAtualizado = new(dto.Nome);
 
-    //     if (dto.StatusDaMesa == 1)
-    //         tipoDeStatus = StatusDaMesa.Livre;
-    //     else if (dto.StatusDaMesa == 2)
-    //         tipoDeStatus = StatusDaMesa.Ocupado;
+        Result resultadoValidacao = ValidarEntidade(garconAtualizado);
 
-    //     Mesa mesaAtualizada = new(dto.NumeroDaMesa, dto.QuantidadeDeLugares, tipoDeStatus);
+        if (resultadoValidacao.IsFailed)
+            return resultadoValidacao;
 
-    //     Result resultadoValidacao = ValidarEntidade(mesaAtualizada);
+        bool conseguiuEditar = repositorioGarcon.Editar(dto.Id, garconAtualizado);
 
-    //     if (resultadoValidacao.IsFailed)
-    //         return resultadoValidacao;
+        if (!conseguiuEditar)
+            return Falha(string.Empty, "Garçon não encontrado.");
 
-    //     bool conseguiuEditar = repositorioMesa.Editar(dto.Id, mesaAtualizada);
+        return Result.Ok();
+    }
 
-    //     if (!conseguiuEditar)
-    //         return Falha(string.Empty, "Mesa não encontrada.");
+    public Result Excluir(Guid id)
+    {
+        Garcon? garcon = repositorioGarcon.SelecionarPorId(id);
 
-    //     return Result.Ok();
-    // }
+        if (garcon == null)
+            return Falha(string.Empty, "Garçon não encontrado.");
 
-    // public Result Excluir(Guid id)
-    // {
-    //     Mesa? mesa = repositorioMesa.SelecionarPorId(id);
+        repositorioGarcon.Excluir(id);
 
-    //     if (mesa == null)
-    //         return Falha(string.Empty, "Mesa não encontrada.");
-
-    //     repositorioMesa.Excluir(id);
-
-    //     return Result.Ok();
-    // }
+        return Result.Ok();
+    }
 
     public List<ListarGarconDto> SelecionarTodos()
     {
@@ -66,13 +59,13 @@ public class ServicoGarcon(IRepositorioGarcon repositorioGarcon) : ServicoBase<G
             .ToList();
     }
 
-    // public Result<DetalhesMesaDto> SelecionarPorId(Guid id)
-    // {
-    //     Mesa? mesa = repositorioMesa.SelecionarPorId(id);
+    public Result<DetalhesGarconDto> SelecionarPorId(Guid id)
+    {
+        Garcon? garcon = repositorioGarcon.SelecionarPorId(id);
 
-    //     if (mesa == null)
-    //         return Result.Fail("Produto não encontrada.");
+        if (garcon == null)
+            return Result.Fail("Produto não encontrada.");
 
-    //     return Result.Ok(new DetalhesMesaDto(mesa.Id, mesa.NumeroDaMesa, mesa.QuantidadeDeLugares, mesa.StatusDaMesa));
-    // }
+        return Result.Ok(new DetalhesGarconDto(garcon.Id, garcon.Nome));
+    }
 }

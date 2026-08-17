@@ -22,4 +22,8 @@
   <ItemGroup>
     <ProjectReference Include="../ControleDeBar.Dominio/ControleDeBar.Dominio.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Modulos\ModuloMesa\" />
+  </ItemGroup>
 </Project>

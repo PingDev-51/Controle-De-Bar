@@ -5,12 +5,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="FluentResults" Version="4.0.0"/>
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.9"/>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.9"/>
+    <PackageReference Include="FluentResults" Version="4.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.9" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.9" />
     <PackageReference Include="QuestPDF" Version="2026.7.2" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ControleDeBar.Dominio\ControleDeBar.Dominio.csproj"/>
+    <ProjectReference Include="..\ControleDeBar.Dominio\ControleDeBar.Dominio.csproj" />
+    <ProjectReference Include="..\ControleDeBar.WebApp\ControleDeBar.WebApp.csproj" />
   </ItemGroup>
 </Project>

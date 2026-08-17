@@ -23,7 +23,7 @@
             Quantidade de lugares na mesa
         </label>
 
-        <input asp-for="QuantidadeDeLugares" type="number" class="form-control" step="0.01" min="0">
+        <input asp-for="QuantidadeDeLugares" type="number" class="form-control" step="1" min="0">
 
         <span asp-validation-for="QuantidadeDeLugares" class="text-danger small fw-semibold"></span>
     </div>
@@ -33,7 +33,7 @@
             status da mesa
         </label>
 
-        <select class="form-select" aria-label="Default select example">
+        <select asp-for="StatusDaMesa" class="form-select" aria-label="Default select example">
             <option selected>Selecione um status da mesa</option>
             <option value="1">Livre</option>
             <option value="2">Ocupado</option>

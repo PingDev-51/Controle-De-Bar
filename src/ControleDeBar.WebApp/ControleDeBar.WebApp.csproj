@@ -23,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Modulos\ModuloGarcon\" />
     <Folder Include="Modulos\ModuloGarcon\Views\" />
     <Folder Include="Modulos\ModuloMesa\" />
     <Folder Include="Modulos\ModuloMesa\Views\" />

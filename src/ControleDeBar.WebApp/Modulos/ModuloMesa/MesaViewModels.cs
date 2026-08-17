@@ -7,6 +7,11 @@ public record ListarMesaViewModel(
     Guid Id,
     string NumeroDaMesa,
     string QuantidadeDeLugares,
-    string Senha,
     StatusDaMesa StatusDaMesa
+);
+
+public record CadastrarMesaViewModel(
+    string NumeroDaMesa,
+    string QuantidadeDeLugares,
+    int StatusDaMesa
 );

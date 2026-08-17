@@ -7,6 +7,11 @@ public record ListarMesaDto(
     Guid Id,
     string NumeroDaMesa,
     string QuantidadeDeLugares,
-    string Senha,
     StatusDaMesa StatusDaMesa
 );
+public record CadastrarMesaDto(
+    string NumeroDaMesa,
+    string QuantidadeDeLugares,
+    int StatusDaMesa
+);
+

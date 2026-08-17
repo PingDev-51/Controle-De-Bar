@@ -13,11 +13,10 @@ public class Mesa : EntidadeBase<Mesa>
 
     public Mesa() { }
 
-    public Mesa(string numeroDaMesa, string quantidadeDeLugares, string senha, StatusDaMesa statusDaMesa)
+    public Mesa(string numeroDaMesa, string quantidadeDeLugares, StatusDaMesa statusDaMesa)
     {
         NumeroDaMesa = numeroDaMesa;
         QuantidadeDeLugares = quantidadeDeLugares;
-        Senha = senha;
         StatusDaMesa = statusDaMesa;
     }
 
@@ -25,7 +24,6 @@ public class Mesa : EntidadeBase<Mesa>
     {
         NumeroDaMesa = entidadeAtualizada.NumeroDaMesa;
         QuantidadeDeLugares = entidadeAtualizada.QuantidadeDeLugares;
-        Senha = entidadeAtualizada.Senha;
         StatusDaMesa = entidadeAtualizada.StatusDaMesa;
     }
 

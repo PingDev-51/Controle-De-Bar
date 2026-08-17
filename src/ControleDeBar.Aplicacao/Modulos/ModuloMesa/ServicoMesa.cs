@@ -7,8 +7,23 @@ namespace ControleDeBar.Aplicacao.Modulos.ModuloMesa;
 
 public class ServicoMesa(IRepositorioMesa repositorioMesa) : ServicoBase<Mesa>
 {
-    public Result Cadastrar()
+    public Result Cadastrar(CadastrarMesaDto dto)
     {
+        StatusDaMesa tipoDeStatus = 0;
+
+        if (dto.StatusDaMesa == 1)
+            tipoDeStatus = StatusDaMesa.Livre;
+        else if (dto.StatusDaMesa == 2)
+            tipoDeStatus = StatusDaMesa.Ocupado;
+
+        Mesa novaMesa = new(dto.NumeroDaMesa, dto.QuantidadeDeLugares, tipoDeStatus);
+
+        Result resultadoValidacao = ValidarEntidade(novaMesa);
+
+        if (resultadoValidacao.IsFailed)
+            return resultadoValidacao;
+
+        repositorioMesa.Cadastrar(novaMesa);
 
         return Result.Ok();
     }
@@ -30,7 +45,7 @@ public class ServicoMesa(IRepositorioMesa repositorioMesa) : ServicoBase<Mesa>
     {
         return repositorioMesa
             .SelecionarTodos()
-            .Select(m => new ListarMesaDto(m.Id, m.NumeroDaMesa, m.QuantidadeDeLugares, m.Senha, m.StatusDaMesa))
+            .Select(m => new ListarMesaDto(m.Id, m.NumeroDaMesa, m.QuantidadeDeLugares, m.StatusDaMesa))
             .ToList();
     }
 

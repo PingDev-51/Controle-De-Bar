@@ -27,10 +27,6 @@ public sealed class MesaConfiguration : IEntityTypeConfiguration<Mesa>
         builder.Property(m => m.QuantidadeDeLugares)
             .HasMaxLength(100)
            .IsRequired();
-
-        builder.Property(m => m.Senha)
-           .IsRequired();
-
         // builder.HasIndex(m => new { m.UserId, m.Nome })
         //     .IsUnique()
         //     .HasDatabaseName("UQ_TBMesa_UserId_Nome");

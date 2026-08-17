@@ -1,0 +1,54 @@
+﻿@using ControleDeBar.WebApp.Modulos.ModuloMesa
+@{
+    Layout = "_Layout";
+    ViewBag.Titulo = "Cadastro de Produto";
+}
+
+@model CadastrarMesaViewModel;
+
+<form class="card border-primary-subtle shadow-sm mx-auto p-4" style="max-width: 620px;" asp-action="Cadastrar"
+      method="post">
+    <div class="mb-3">
+        <label asp-for="NumeroDaMesa" class="form-label fw-semibold text-primary text-uppercase small">
+            Numero da mesa
+        </label>
+
+        <input asp-for="NumeroDaMesa" type="text" class="form-control">
+
+        <span asp-validation-for="NumeroDaMesa" class="text-danger small fw-semibold"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="QuantidadeDeLugares" class="form-label fw-semibold text-primary text-uppercase small">
+            Quantidade de lugares na mesa
+        </label>
+
+        <input asp-for="QuantidadeDeLugares" type="number" class="form-control" step="0.01" min="0">
+
+        <span asp-validation-for="QuantidadeDeLugares" class="text-danger small fw-semibold"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="StatusDaMesa" class="form-label fw-semibold text-primary text-uppercase small">
+            status da mesa
+        </label>
+
+        <select class="form-select" aria-label="Default select example">
+            <option selected>Selecione um status da mesa</option>
+            <option value="1">Livre</option>
+            <option value="2">Ocupado</option>
+        </select>
+
+        <span asp-validation-for="StatusDaMesa" class="text-danger small fw-semibold"></span>
+    </div>
+
+    <div class="d-flex justify-content-end gap-2 mt-4">
+        <a class="btn btn-outline-primary rounded-pill px-4" asp-action="Listar">
+            Voltar
+        </a>
+
+        <button class="btn btn-primary rounded-pill px-4" type="submit">
+            Confirmar
+        </button>
+    </div>
+</form>

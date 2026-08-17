@@ -11,6 +11,8 @@ using ControleDeBar.Dominio.Modulos.ModuloProduto;
 using ControleDeBar.Infra.Modulos.ModuloProduto;
 using ControleDeBar.Dominio.Modulos.ModuloContas;
 using ControleDeBar.Infra.Modulos.ModuloContas;
+using ControleDeBar.Dominio.Modulos.ModuloMesa;
+using ControleDeBar.Infra.Modulos.ModuloMesa;
 
 namespace ControleDeBar.Infra;
 
@@ -68,10 +70,11 @@ public static class InjecaoDeDependencia
         .AddDefaultTokenProviders();
 
 
-       
+
         //Adicionar os modulos aqui <---------
         services.AddScoped<IRepositorioProduto, RepositorioProdutoEmOrm>();
         services.AddScoped<IRepositorioContas, RepositorioContaEmOrm>();
+        services.AddScoped<IRepositorioMesa, RepositorioMesaEmOrm>();
         // services.AddScoped<IRepositorioQuestao, RepositorioQuestaoEmOrm>();
         // services.AddScoped<IRepositorioProva, RepositorioProvaEmOrm>();
     }

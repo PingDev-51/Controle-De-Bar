@@ -15,6 +15,8 @@ using ControleDeBar.Dominio.Modulos.ModuloMesa;
 using ControleDeBar.Infra.Modulos.ModuloMesa;
 using ControleDeBar.Dominio.Modulos.ModuloGarcon;
 using ControleDeBar.Infra.Modulos.ModuloGarcon;
+using ControleDeBar.Dominio.Modulos.ModuloPedido;
+using ControleDeBar.Infra.Modulos.ModuloPedido;
 
 namespace ControleDeBar.Infra;
 
@@ -78,6 +80,6 @@ public static class InjecaoDeDependencia
         services.AddScoped<IRepositorioContas, RepositorioContaEmOrm>();
         services.AddScoped<IRepositorioMesa, RepositorioMesaEmOrm>();
         services.AddScoped<IRepositorioGarcon, RepositorioGarconEmOrm>();
-        // services.AddScoped<IRepositorioProva, RepositorioProvaEmOrm>();
+        services.AddScoped<IRepositorioPedido, RepositorioPedidoEmOrm>();
     }
 }

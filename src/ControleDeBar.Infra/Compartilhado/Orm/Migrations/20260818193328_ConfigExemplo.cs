@@ -226,6 +226,32 @@ namespace ControleDeBar.Infra.Compartilhado.Orm.Migrations
                         principalColumn: "Id");
                 });
 
+            migrationBuilder.CreateTable(
+                name: "TBPedidos",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ContaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ProdutoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Quantidade = table.Column<int>(type: "int", nullable: false),
+                    Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TBPedidos", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TBPedidos_TBContas",
+                        column: x => x.ContaId,
+                        principalTable: "TBContas",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_TBPedidos_TBProdutos",
+                        column: x => x.ProdutoId,
+                        principalTable: "TBProduto",
+                        principalColumn: "Id");
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -282,6 +308,16 @@ namespace ControleDeBar.Infra.Compartilhado.Orm.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_TBPedidos_ContaId",
+                table: "TBPedidos",
+                column: "ContaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TBPedidos_ProdutoId",
+                table: "TBPedidos",
+                column: "ProdutoId");
+
+            migrationBuilder.CreateIndex(
                 name: "UQ_TBProduto_UserId_Nome",
                 table: "TBProduto",
                 columns: new[] { "UserId", "Nome" },
@@ -307,16 +343,19 @@ namespace ControleDeBar.Infra.Compartilhado.Orm.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "TBContas");
-
-            migrationBuilder.DropTable(
-                name: "TBProduto");
+                name: "TBPedidos");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "TBContas");
+
+            migrationBuilder.DropTable(
+                name: "TBProduto");
 
             migrationBuilder.DropTable(
                 name: "TBGarcon");

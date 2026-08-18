@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ControleDeBar.Infra.Compartilhado.Orm.Migrations
 {
     [DbContext(typeof(ControleDeBarDbContext))]
-    [Migration("20260818054944_ConfigExemplo")]
+    [Migration("20260818193328_ConfigExemplo")]
     partial class ConfigExemplo
     {
         /// <inheritdoc />
@@ -111,6 +111,36 @@ namespace ControleDeBar.Infra.Compartilhado.Orm.Migrations
                         .HasName("PK_TBMesa");
 
                     b.ToTable("TBMesa", (string)null);
+                });
+
+            modelBuilder.Entity("ControleDeBar.Dominio.Modulos.ModuloPedido.Pedido", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ContaId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ProdutoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id")
+                        .HasName("PK_TBPedidos");
+
+                    b.HasIndex("ContaId");
+
+                    b.HasIndex("ProdutoId");
+
+                    b.ToTable("TBPedidos", (string)null);
                 });
 
             modelBuilder.Entity("ControleDeBar.Dominio.Modulos.ModuloProduto.Produto", b =>
@@ -354,6 +384,27 @@ namespace ControleDeBar.Infra.Compartilhado.Orm.Migrations
                     b.Navigation("Garcon");
 
                     b.Navigation("Mesa");
+                });
+
+            modelBuilder.Entity("ControleDeBar.Dominio.Modulos.ModuloPedido.Pedido", b =>
+                {
+                    b.HasOne("ControleDeBar.Dominio.Modulos.ModuloContas.Conta", "Conta")
+                        .WithMany()
+                        .HasForeignKey("ContaId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
+                        .HasConstraintName("FK_TBPedidos_TBContas");
+
+                    b.HasOne("ControleDeBar.Dominio.Modulos.ModuloProduto.Produto", "Produto")
+                        .WithMany()
+                        .HasForeignKey("ProdutoId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
+                        .HasConstraintName("FK_TBPedidos_TBProdutos");
+
+                    b.Navigation("Conta");
+
+                    b.Navigation("Produto");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>

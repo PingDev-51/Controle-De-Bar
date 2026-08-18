@@ -170,6 +170,16 @@ public class ContaController(ServicoConta servicoConta, IMapper mapeador) : Cont
         return RedirectToAction(nameof(Listar));
     }
 
+    [HttpGet]
+    public ActionResult Pedido(Guid id)
+    {
+        return RedirectToAction(
+            "Listar",
+            "Pedido",
+            new { contaId = id }
+        );
+    }
+
     public List<OpcaoGarconViewModel> SelecionarGarcon()
     {
         List<OpcaoGarconDto> dtos =

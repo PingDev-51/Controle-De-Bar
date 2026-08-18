@@ -1,0 +1,91 @@
+@using ControleDeBar.WebApp.Modulos.ModuloPedido
+
+@{
+    Layout = "_Layout";
+    ViewBag.Titulo = "Pedidos da Conta";
+}
+
+@model List<ListarPedidoViewModel>;
+
+<a class="btn btn-outline-primary rounded-pill px-4 mb-3"
+   asp-action="Cadastrar"
+   asp-route-contaId="@ViewBag.ContaId">
+    Cadastrar Novo Pedido
+</a>
+
+@if (TempData["MensagemErro"] is string mensagemErro)
+{
+    <div class="alert alert-danger border-start border-danger border-4 rounded-3" role="alert">
+        @mensagemErro
+    </div>
+}
+
+@if (Model.Count == 0)
+{
+    <div class="alert alert-primary border-start border-primary border-4 rounded-3" role="alert">
+        Nenhum pedido cadastrado para esta conta.
+    </div>
+}
+else
+{
+    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-2">
+
+        @foreach (ListarPedidoViewModel pedido in Model)
+        {
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+
+                        <div class="d-flex justify-content-between align-items-start gap-3 mb-3">
+                            <div>
+                                <h5 class="card-title mb-1">
+                                    @pedido.NomeProduto
+                                </h5>
+                            </div>
+
+                            <span class="badge text-bg-primary rounded-pill">
+                                @pedido.Id.ToString().Substring(0, 8)
+                            </span>
+                        </div>
+
+                        <dl class="row g-2 mb-4">
+
+                            <dt class="col-5 text-secondary fw-semibold">
+                                Quantidade
+                            </dt>
+                            <dd class="col-7 mb-0 text-break">
+                                @pedido.Quantidade
+                            </dd>
+
+                            <dt class="col-5 text-secondary fw-semibold">
+                                Total
+                            </dt>
+                            <dd class="col-7 mb-0 text-break">
+                                @pedido.Total.ToString("C")
+                            </dd>
+
+                        </dl>
+
+                        <div class="d-flex flex-wrap gap-2 mt-auto justify-content-end">
+
+                            <a class="btn btn-outline-primary btn-sm rounded-pill px-3"
+                               asp-action="Editar"
+                               asp-route-id="@pedido.Id">
+                                Editar
+                            </a>
+
+                            <a class="btn btn-outline-primary btn-sm rounded-pill px-3"
+                               asp-action="Excluir"
+                               asp-route-id="@pedido.Id">
+                                Excluir
+                            </a>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+}

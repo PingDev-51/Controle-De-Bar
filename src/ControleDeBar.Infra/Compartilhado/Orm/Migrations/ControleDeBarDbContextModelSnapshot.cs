@@ -4,7 +4,6 @@ using GeradorDeProvas.Infra.Compartilhado.Orm;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -12,11 +11,9 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ControleDeBar.Infra.Compartilhado.Orm.Migrations
 {
     [DbContext(typeof(ControleDeBarDbContext))]
-    [Migration("20260816235443_ConfigExemplo")]
-    partial class ConfigExemplo
+    partial class ControleDeBarDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,67 +22,32 @@ namespace ControleDeBar.Infra.Compartilhado.Orm.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ControleDeBar.Dominio.Modulos.ModuloContas.Conta", b =>
+            modelBuilder.Entity("ControleDeBar.Dominio.Modulos.ModuloGarcon.Garcon", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("DataAbertura")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("GarconId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("MesaId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("NomeCliente")
+                    b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<int>("Situacao")
-                        .HasColumnType("int");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id")
-                        .HasName("PK_TBContas");
+                        .HasName("PK_TBGarcon");
 
-                    b.HasIndex("GarconId");
-
-                    b.HasIndex("MesaId");
-
-                    b.HasIndex("UserId", "GarconId")
+                    b.HasIndex("UserId", "Nome")
                         .IsUnique()
-                        .HasDatabaseName("UQ_TBContas_UserId_Garcon");
+                        .HasDatabaseName("UQ_TBGarcon_UserId_Nome");
 
-                    b.ToTable("TBContas", (string)null);
-                });
-
-            modelBuilder.Entity("ControleDeBar.Dominio.Modulos.ModuloGarcon.Garcon", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Garcon");
+                    b.ToTable("TBGarcon", (string)null);
                 });
 
             modelBuilder.Entity("ControleDeBar.Dominio.Modulos.ModuloMesa.Mesa", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("NumeroDaMesa")
@@ -94,7 +56,8 @@ namespace ControleDeBar.Infra.Compartilhado.Orm.Migrations
 
                     b.Property<string>("QuantidadeDeLugares")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Senha")
                         .IsRequired()
@@ -106,9 +69,10 @@ namespace ControleDeBar.Infra.Compartilhado.Orm.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("PK_TBMesa");
 
-                    b.ToTable("Mesa");
+                    b.ToTable("TBMesa", (string)null);
                 });
 
             modelBuilder.Entity("ControleDeBar.Dominio.Modulos.ModuloProduto.Produto", b =>
@@ -333,27 +297,6 @@ namespace ControleDeBar.Infra.Compartilhado.Orm.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("ControleDeBar.Dominio.Modulos.ModuloContas.Conta", b =>
-                {
-                    b.HasOne("ControleDeBar.Dominio.Modulos.ModuloGarcon.Garcon", "Garcon")
-                        .WithMany()
-                        .HasForeignKey("GarconId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
-                        .HasConstraintName("FK_TBContas_TBGarcon");
-
-                    b.HasOne("ControleDeBar.Dominio.Modulos.ModuloMesa.Mesa", "Mesa")
-                        .WithMany()
-                        .HasForeignKey("MesaId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
-                        .HasConstraintName("FK_TBContas_TBMesa");
-
-                    b.Navigation("Garcon");
-
-                    b.Navigation("Mesa");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>

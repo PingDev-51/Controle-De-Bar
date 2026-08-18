@@ -12,5 +12,6 @@ public class PedidoProfile : Profile
         CreateMap<EditarPedidoViewModel, EditarPedidoDto>();
         CreateMap<DetalhesPedidoDto, EditarPedidoViewModel>();
         CreateMap<DetalhesPedidoDto, ExcluirPedidoViewModel>();
+        CreateMap<OpcaoProdutoDto, OpcaoProdutoViewModel>();
     }
 }

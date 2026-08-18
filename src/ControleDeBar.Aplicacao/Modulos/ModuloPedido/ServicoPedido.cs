@@ -109,30 +109,15 @@ public class ServicoPedido : ServicoBase<Pedido>
         return Result.Ok();
     }
 
-    public List<ListarPedidoDto> SelecionarTodos()
-    {
-        return repositorioPedidos
-            .SelecionarTodos()
-            .Select(p => new ListarPedidoDto(
-                p.Id,
-                p.ContaId,
-                p.ProdutoId,
-                p.Produto!.Nome,
-                p.Quantidade,
-                p.Total
-            ))
-            .ToList();
-    }
-
     public List<ListarPedidoDto> SelecionarPorConta(Guid contaId)
     {
         return repositorioPedidos
-            .Filtrar(p => p.ContaId == contaId)
+            .SelecionarPorConta(contaId)
             .Select(p => new ListarPedidoDto(
                 p.Id,
                 p.ContaId,
                 p.ProdutoId,
-                p.Produto!.Nome,
+                p.Produto?.Nome ?? "Produto não encontrado",
                 p.Quantidade,
                 p.Total
             ))

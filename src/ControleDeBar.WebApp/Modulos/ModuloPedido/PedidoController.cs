@@ -28,24 +28,33 @@ public class PedidoController(
     [HttpGet]
     public ActionResult Cadastrar(Guid contaId)
     {
+        List<OpcaoProdutoDto> dtos =
+            servicoPedido.SelecionarProdutos();
+
+        List<OpcaoProdutoViewModel> produtos =
+            mapeador.Map<List<OpcaoProdutoViewModel>>(dtos);
+
+        ViewBag.Produtos = produtos;
+        ViewBag.ContaId = contaId;
+
         CadastrarPedidoViewModel cadastrarVm = new(
             Guid.Empty,
             Guid.Empty,
             0
         );
 
-        ViewBag.ContaId = contaId;
-
         return View(cadastrarVm);
     }
 
     [HttpPost]
     public ActionResult Cadastrar(
-        Guid contaId,
-        CadastrarPedidoViewModel cadastrarVm)
+     Guid contaId,
+     CadastrarPedidoViewModel cadastrarVm)
     {
         if (!ModelState.IsValid)
         {
+            CarregarProdutos();
+
             ViewBag.ContaId = contaId;
 
             return View(cadastrarVm);
@@ -62,6 +71,8 @@ public class PedidoController(
         if (resultado.IsFailed)
         {
             ModelState.AddModelError(resultado);
+
+            CarregarProdutos();
 
             ViewBag.ContaId = contaId;
 
@@ -150,5 +161,14 @@ public class PedidoController(
             nameof(Listar),
             new { contaId = excluirVm.ContaId }
         );
+    }
+
+    private void CarregarProdutos()
+    {
+        List<OpcaoProdutoDto> dtos =
+            servicoPedido.SelecionarProdutos();
+
+        ViewBag.Produtos =
+            mapeador.Map<List<OpcaoProdutoViewModel>>(dtos);
     }
 }

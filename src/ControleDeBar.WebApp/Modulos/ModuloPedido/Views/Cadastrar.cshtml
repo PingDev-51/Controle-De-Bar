@@ -1,0 +1,70 @@
+@using ControleDeBar.WebApp.Modulos.ModuloPedido
+
+@{
+    Layout = "_Layout";
+    ViewBag.Titulo = "Cadastro de Pedido";
+}
+
+@model CadastrarPedidoViewModel
+
+<form class="card border-primary-subtle shadow-sm mx-auto p-4"
+      style="max-width: 620px;"
+      asp-action="Cadastrar"
+      asp-route-contaId="@ViewBag.ContaId"
+      method="post">
+
+    <div class="mb-3">
+        <label asp-for="ProdutoId"
+               class="form-label fw-semibold text-primary text-uppercase small">
+            Produto
+        </label>
+
+        <select asp-for="ProdutoId"
+                class="form-select">
+
+            <option value="">Selecione o produto</option>
+
+            @foreach (OpcaoProdutoViewModel produto in ViewBag.Produtos)
+            {
+                <option value="@produto.Id">
+                    @produto.Nome - @produto.Preco.ToString("C")
+                </option>
+            }
+
+        </select>
+
+        <span asp-validation-for="ProdutoId"
+              class="text-danger small fw-semibold"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Quantidade"
+               class="form-label fw-semibold text-primary text-uppercase small">
+            Quantidade
+        </label>
+
+        <input asp-for="Quantidade"
+               type="number"
+               min="1"
+               class="form-control">
+
+        <span asp-validation-for="Quantidade"
+              class="text-danger small fw-semibold"></span>
+    </div>
+
+    <div class="d-flex justify-content-end gap-2 mt-4">
+
+        <a class="btn btn-outline-primary rounded-pill px-4"
+           asp-action="Listar"
+           asp-route-contaId="@ViewBag.ContaId">
+            Voltar
+        </a>
+
+        <button class="btn btn-primary rounded-pill px-4"
+                type="submit">
+            Confirmar
+        </button>
+
+    </div>
+
+</form>

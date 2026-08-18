@@ -50,3 +50,9 @@ public record DetalhesPedidoViewModel(
     int Quantidade,
     decimal Total
 );
+
+public record OpcaoProdutoViewModel(
+    Guid Id,
+    string Nome,
+    decimal Preco
+);

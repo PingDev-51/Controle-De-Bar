@@ -1,9 +1,10 @@
 using System;
 using ControleDeBar.Dominio.Compartilhado;
+using ControleDeBar.Dominio.Compartilhado.Identity;
 
 namespace ControleDeBar.Dominio.Modulos.ModuloMesa;
 
-public class Mesa : EntidadeBase<Mesa>
+public class Mesa : EntidadeBase<Mesa>, IEntidadeDoUsuario
 {
     public Guid UserId { get; set; }
     public string NumeroDaMesa { get; set; } = string.Empty;

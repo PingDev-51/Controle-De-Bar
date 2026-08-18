@@ -1,9 +1,10 @@
 using System;
 using ControleDeBar.Dominio.Compartilhado;
+using ControleDeBar.Dominio.Compartilhado.Identity;
 
 namespace ControleDeBar.Dominio.Modulos.ModuloGarcon;
 
-public class Garcon : EntidadeBase<Garcon>
+public class Garcon : EntidadeBase<Garcon>, IEntidadeDoUsuario
 {
     public Guid UserId { get; set; }
     public string Nome { get; set; } = string.Empty;

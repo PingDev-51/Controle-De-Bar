@@ -1,9 +1,10 @@
 using System;
 using ControleDeBar.Dominio.Compartilhado;
+using ControleDeBar.Dominio.Compartilhado.Identity;
 
 namespace ControleDeBar.Dominio.Modulos.ModuloProduto;
 
-public class Produto : EntidadeBase<Produto>
+public class Produto : EntidadeBase<Produto>, IEntidadeDoUsuario
 {
     public Guid UserId { get; set; }
     public string Nome { get; set; } = string.Empty;

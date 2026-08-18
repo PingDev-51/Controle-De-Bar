@@ -24,4 +24,12 @@ public sealed class RepositorioPedidoEmOrm(
             .Include(p => p.Produto)
             .ToList();
     }
+
+    public List<Pedido> SelecionarPorConta(Guid contaId)
+    {
+        return registros
+            .Include(p => p.Produto)
+            .Where(p => p.ContaId == contaId)
+            .ToList();
+    }
 }

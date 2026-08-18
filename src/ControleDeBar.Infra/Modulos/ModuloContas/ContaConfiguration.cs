@@ -10,45 +10,37 @@ public sealed class ContasConfiguration : IEntityTypeConfiguration<Conta>
     {
         builder.ToTable("TBContas");
 
-        builder.HasKey(p => p.Id)
+        builder.HasKey(c => c.Id)
             .HasName("PK_TBContas");
 
-        builder.Property(p => p.Id)
+        builder.Property(c => c.Id)
             .ValueGeneratedNever();
 
-        builder.Property(p => p.UserId)
+        builder.Property(c => c.UserId)
             .IsRequired();
 
-        builder.Property(p => p.NomeCliente)
+        builder.Property(c => c.NomeCliente)
             .HasMaxLength(100)
             .IsRequired();
 
-        builder.Property(p => p.DataAbertura)
+        builder.Property(c => c.DataAbertura)
             .IsRequired();
 
-        builder.Property(p => p.Situacao)
+        builder.Property(c => c.Situacao)
             .IsRequired();
 
-        builder.Property<Guid>("GarconId")
-            .IsRequired();
-
-        builder.Property<Guid>("MesaId")
-            .IsRequired();
-
-        builder.HasOne(p => p.Garcon)
+        builder.HasOne(c => c.Garcon)
             .WithMany()
             .HasForeignKey("GarconId")
             .HasConstraintName("FK_TBContas_TBGarcon")
             .OnDelete(DeleteBehavior.NoAction);
+          
 
-        builder.HasOne(p => p.Mesa)
+        builder.HasOne(c => c.Mesa)
             .WithMany()
             .HasForeignKey("MesaId")
             .HasConstraintName("FK_TBContas_TBMesa")
             .OnDelete(DeleteBehavior.NoAction);
-
-        builder.HasIndex("UserId", "GarconId")
-            .IsUnique()
-            .HasDatabaseName("UQ_TBContas_UserId_Garcon");
+          
     }
 }

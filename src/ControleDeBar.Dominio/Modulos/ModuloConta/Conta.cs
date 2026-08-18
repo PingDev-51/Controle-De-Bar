@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
 using ControleDeBar.Dominio.Compartilhado;
+using ControleDeBar.Dominio.Compartilhado.Identity;
 using ControleDeBar.Dominio.Modulos.ModuloGarcon;
 using ControleDeBar.Dominio.Modulos.ModuloMesa;
 
 namespace ControleDeBar.Dominio.Modulos.ModuloContas;
 
-public class Conta : EntidadeBase<Conta>
+public class Conta : EntidadeBase<Conta>, IEntidadeDoUsuario
 {
     public Guid UserId { get; set; }
     public Garcon? Garcon { get; set; }

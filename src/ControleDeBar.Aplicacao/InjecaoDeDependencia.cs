@@ -1,3 +1,4 @@
+using ControleDeBar.Aplicacao.Modulos.ModuloConta;
 using ControleDeBar.Aplicacao.Modulos.ModuloGarcon;
 using ControleDeBar.Aplicacao.Modulos.ModuloMesa;
 using ControleDeBar.Aplicacao.Modulos.ModuloProduto;
@@ -16,6 +17,7 @@ public static class InjecaoDeDependencia
         services.AddScoped<ServicoProduto>();
         services.AddScoped<ServicoMesa>();
         services.AddScoped<ServicoGarcon>();
+        services.AddScoped<ServicoConta>();
 
     }
 }

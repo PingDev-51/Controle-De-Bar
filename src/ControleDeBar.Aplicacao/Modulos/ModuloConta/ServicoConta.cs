@@ -28,8 +28,14 @@ public class ServicoConta : ServicoBase<Conta>
         Garcon? garconSelecionado =
             repositorioGarcon.SelecionarPorId(dto.GarconId);
 
+        if (garconSelecionado == null)
+            return Falha(string.Empty, "Garçom não encontrado.");
+
         Mesa? mesaSelecionada =
             repositorioMesa.SelecionarPorId(dto.MesaId);
+
+        if (mesaSelecionada == null)
+            return Falha(string.Empty, "Mesa não encontrada.");
 
         Conta novaConta = new Conta(dto.NomeCliente)
         {
@@ -52,8 +58,14 @@ public class ServicoConta : ServicoBase<Conta>
         Garcon? garconSelecionado =
             repositorioGarcon.SelecionarPorId(dto.GarconId);
 
+        if (garconSelecionado == null)
+            return Falha(string.Empty, "Garçom não encontrado.");
+
         Mesa? mesaSelecionada =
             repositorioMesa.SelecionarPorId(dto.MesaId);
+
+        if (mesaSelecionada == null)
+            return Falha(string.Empty, "Mesa não encontrada.");
 
         Conta contaAtualizada = new Conta(dto.NomeCliente)
         {
@@ -112,12 +124,18 @@ public class ServicoConta : ServicoBase<Conta>
         if (conta == null)
             return Result.Fail("Conta não encontrada.");
 
+        if (conta.Garcon == null)
+            return Result.Fail("O garçom da conta não foi encontrado.");
+
+        if (conta.Mesa == null)
+            return Result.Fail("A mesa da conta não foi encontrada.");
+
         return Result.Ok(new DetalhesContaDto(
             conta.Id,
             conta.NomeCliente,
-            conta.Garcon!.Id,
+            conta.Garcon.Id,
             conta.Garcon.Nome,
-            conta.Mesa!.Id,
+            conta.Mesa.Id,
             conta.Mesa.NumeroDaMesa,
             conta.DataAbertura,
             conta.Situacao

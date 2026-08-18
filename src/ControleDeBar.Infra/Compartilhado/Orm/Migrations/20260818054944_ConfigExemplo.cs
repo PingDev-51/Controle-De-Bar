@@ -199,6 +199,33 @@ namespace ControleDeBar.Infra.Compartilhado.Orm.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "TBContas",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    GarconId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    NomeCliente = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    DataAbertura = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Situacao = table.Column<int>(type: "int", nullable: false),
+                    MesaId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TBContas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TBContas_TBGarcon",
+                        column: x => x.GarconId,
+                        principalTable: "TBGarcon",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_TBContas_TBMesa",
+                        column: x => x.MesaId,
+                        principalTable: "TBMesa",
+                        principalColumn: "Id");
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -239,6 +266,16 @@ namespace ControleDeBar.Infra.Compartilhado.Orm.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_TBContas_GarconId",
+                table: "TBContas",
+                column: "GarconId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TBContas_MesaId",
+                table: "TBContas",
+                column: "MesaId");
+
+            migrationBuilder.CreateIndex(
                 name: "UQ_TBGarcon_UserId_Nome",
                 table: "TBGarcon",
                 columns: new[] { "UserId", "Nome" },
@@ -270,10 +307,7 @@ namespace ControleDeBar.Infra.Compartilhado.Orm.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "TBGarcon");
-
-            migrationBuilder.DropTable(
-                name: "TBMesa");
+                name: "TBContas");
 
             migrationBuilder.DropTable(
                 name: "TBProduto");
@@ -283,6 +317,12 @@ namespace ControleDeBar.Infra.Compartilhado.Orm.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "TBGarcon");
+
+            migrationBuilder.DropTable(
+                name: "TBMesa");
         }
     }
 }

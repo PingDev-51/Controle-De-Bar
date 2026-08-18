@@ -1,0 +1,83 @@
+@using ControleDeBar.WebApp.Modulos.ModuloConta
+@{
+    Layout = "_Layout";
+    ViewBag.Titulo = "Cadastro de Conta";
+}
+
+@model CadastrarContaViewModel
+
+<form class="card border-primary-subtle shadow-sm mx-auto p-4"
+      style="max-width: 620px;"
+      asp-action="Cadastrar"
+      method="post">
+
+    <div class="mb-3">
+        <label asp-for="NomeCliente"
+               class="form-label fw-semibold text-primary text-uppercase small">
+            Nome do Cliente
+        </label>
+
+        <input asp-for="NomeCliente"
+               type="text"
+               class="form-control">
+
+        <span asp-validation-for="NomeCliente"
+              class="text-danger small fw-semibold"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="GarconId"
+               class="form-label fw-semibold text-primary text-uppercase small">
+            Garçom
+        </label>
+
+        <select asp-for="GarconId"
+                class="form-select">
+            <option value="">Selecione o garçom</option>
+
+            @foreach (OpcaoGarconViewModel garcon in ViewBag.Garcons)
+            {
+                <option value="@garcon.Id">
+                    @garcon.Nome
+                </option>
+            }
+        </select>
+
+        <span asp-validation-for="GarconId"
+              class="text-danger small fw-semibold"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="MesaId"
+               class="form-label fw-semibold text-primary text-uppercase small">
+            Mesa
+        </label>
+
+        <select asp-for="MesaId"
+                class="form-select">
+            <option value="">Selecione a mesa</option>
+
+            @foreach (OpcaoMesaViewModel mesa in ViewBag.Mesas)
+            {
+                <option value="@mesa.Id">
+                    @mesa.NumeroDaMesa
+                </option>
+            }
+        </select>
+
+        <span asp-validation-for="MesaId"
+              class="text-danger small fw-semibold"></span>
+    </div>
+
+    <div class="d-flex justify-content-end gap-2 mt-4">
+        <a class="btn btn-outline-primary rounded-pill px-4"
+           asp-action="Listar">
+            Voltar
+        </a>
+
+        <button class="btn btn-primary rounded-pill px-4"
+                type="submit">
+            Confirmar
+        </button>
+    </div>
+</form>

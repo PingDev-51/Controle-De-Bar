@@ -22,6 +22,41 @@ namespace ControleDeBar.Infra.Compartilhado.Orm.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("ControleDeBar.Dominio.Modulos.ModuloContas.Conta", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DataAbertura")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("GarconId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("MesaId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("NomeCliente")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("Situacao")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id")
+                        .HasName("PK_TBContas");
+
+                    b.HasIndex("GarconId");
+
+                    b.HasIndex("MesaId");
+
+                    b.ToTable("TBContas", (string)null);
+                });
+
             modelBuilder.Entity("ControleDeBar.Dominio.Modulos.ModuloGarcon.Garcon", b =>
                 {
                     b.Property<Guid>("Id")
@@ -297,6 +332,25 @@ namespace ControleDeBar.Infra.Compartilhado.Orm.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("ControleDeBar.Dominio.Modulos.ModuloContas.Conta", b =>
+                {
+                    b.HasOne("ControleDeBar.Dominio.Modulos.ModuloGarcon.Garcon", "Garcon")
+                        .WithMany()
+                        .HasForeignKey("GarconId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .HasConstraintName("FK_TBContas_TBGarcon");
+
+                    b.HasOne("ControleDeBar.Dominio.Modulos.ModuloMesa.Mesa", "Mesa")
+                        .WithMany()
+                        .HasForeignKey("MesaId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .HasConstraintName("FK_TBContas_TBMesa");
+
+                    b.Navigation("Garcon");
+
+                    b.Navigation("Mesa");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>

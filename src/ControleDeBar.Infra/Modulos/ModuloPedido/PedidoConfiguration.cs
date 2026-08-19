@@ -36,7 +36,7 @@ public sealed class PedidoConfiguration : IEntityTypeConfiguration<Pedido>
             .WithMany()
             .HasForeignKey(p => p.ContaId)
             .HasConstraintName("FK_TBPedidos_TBContas")
-            .OnDelete(DeleteBehavior.NoAction);
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasOne(p => p.Produto)
             .WithMany()

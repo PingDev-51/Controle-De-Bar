@@ -188,6 +188,17 @@ public class ContaController(ServicoConta servicoConta, IMapper mapeador) : Cont
         return mapeador.Map<List<OpcaoGarconViewModel>>(dtos);
     }
 
+    [HttpPost]
+    public ActionResult Concluir(Guid id)
+    {
+        Result resultado = servicoConta.Concluir(id);
+
+        if (resultado.IsFailed)
+            TempData.AddErrorMessage(resultado);
+
+        return RedirectToAction(nameof(Listar));
+    }
+
     public List<OpcaoMesaViewModel> SelecionarMesa()
     {
         List<OpcaoMesaDto> dtos =

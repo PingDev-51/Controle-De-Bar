@@ -148,6 +148,7 @@ public class ServicoPedido : ServicoBase<Pedido>
         ));
     }
 
+
     public List<OpcaoProdutoDto> SelecionarProdutos()
     {
         return repositorioProdutos

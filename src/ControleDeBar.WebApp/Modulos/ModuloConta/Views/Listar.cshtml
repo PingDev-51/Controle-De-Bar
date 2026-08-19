@@ -1,4 +1,5 @@
 @using ControleDeBar.WebApp.Modulos.ModuloConta
+@using ControleDeBar.Dominio.Modulos.ModuloContas
 
 @{
     Layout = "_Layout";
@@ -7,7 +8,8 @@
 
 @model List<ListarContaViewModel>;
 
-<a class="btn btn-outline-primary rounded-pill px-4 mb-3" asp-action="Cadastrar">
+<a class="btn btn-outline-primary rounded-pill px-4 mb-3"
+   asp-action="Cadastrar">
     Cadastrar Nova
 </a>
 
@@ -27,6 +29,7 @@
 else
 {
     <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-2">
+
         @foreach (ListarContaViewModel conta in Model)
         {
             <div class="col">
@@ -79,6 +82,21 @@ else
 
                         <div class="d-flex flex-wrap gap-2 mt-auto justify-content-end">
 
+                            @if (conta.Situacao == Situacao.Aberta)
+                            {
+                                <form asp-action="Concluir"
+                                      asp-route-id="@conta.Id"
+                                      method="post"
+                                      class="d-inline">
+
+                                    <button class="btn btn-outline-success btn-sm rounded-pill px-3"
+                                            type="submit">
+                                        Concluir
+                                    </button>
+
+                                </form>
+                            }
+                            
                             <a class="btn btn-outline-primary btn-sm rounded-pill px-3"
                                asp-action="Pedido"
                                asp-route-id="@conta.Id">
@@ -103,5 +121,6 @@ else
                 </div>
             </div>
         }
+
     </div>
 }

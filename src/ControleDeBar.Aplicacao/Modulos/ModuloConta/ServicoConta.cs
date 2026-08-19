@@ -141,6 +141,22 @@ public class ServicoConta : ServicoBase<Conta>
             conta.Situacao
         ));
     }
+    public Result Concluir(Guid id)
+    {
+        Conta? conta = repositorioContas.SelecionarPorId(id);
+
+        if (conta == null)
+            return Falha(string.Empty, "Conta não encontrada.");
+
+        conta.Situacao = Situacao.Fechada;
+
+        bool conseguiuEditar = repositorioContas.Editar(id, conta);
+
+        if (!conseguiuEditar)
+            return Falha(string.Empty, "Não foi possível concluir a conta.");
+
+        return Result.Ok();
+    }
 
     public List<OpcaoGarconDto> SelecionarGarcon()
     {

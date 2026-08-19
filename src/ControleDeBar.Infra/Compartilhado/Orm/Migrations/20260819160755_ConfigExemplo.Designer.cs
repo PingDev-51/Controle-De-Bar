@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ControleDeBar.Infra.Compartilhado.Orm.Migrations
 {
     [DbContext(typeof(ControleDeBarDbContext))]
-    [Migration("20260818193328_ConfigExemplo")]
+    [Migration("20260819160755_ConfigExemplo")]
     partial class ConfigExemplo
     {
         /// <inheritdoc />
@@ -391,7 +391,7 @@ namespace ControleDeBar.Infra.Compartilhado.Orm.Migrations
                     b.HasOne("ControleDeBar.Dominio.Modulos.ModuloContas.Conta", "Conta")
                         .WithMany()
                         .HasForeignKey("ContaId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("FK_TBPedidos_TBContas");
 

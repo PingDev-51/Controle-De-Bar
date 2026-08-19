@@ -1,11 +1,15 @@
 using System;
 using ControleDeBar.Aplicacao.Compartilhado;
+using ControleDeBar.Dominio.Modulos.ModuloContas;
 using ControleDeBar.Dominio.Modulos.ModuloGarcon;
 using FluentResults;
 
 namespace ControleDeBar.Aplicacao.Modulos.ModuloGarcon;
 
-public class ServicoGarcon(IRepositorioGarcon repositorioGarcon) : ServicoBase<Garcon>
+public class ServicoGarcon(
+    IRepositorioGarcon repositorioGarcon,
+    IRepositorioContas repositorioContas
+) : ServicoBase<Garcon>
 {
     public Result Cadastrar(CadastrarGarconDto dto)
     {
@@ -44,7 +48,17 @@ public class ServicoGarcon(IRepositorioGarcon repositorioGarcon) : ServicoBase<G
         Garcon? garcon = repositorioGarcon.SelecionarPorId(id);
 
         if (garcon == null)
-            return Falha(string.Empty, "Garçon não encontrado.");
+            return Falha(string.Empty, "Garçom não encontrado.");
+
+        bool garconEmUso = repositorioContas
+            .SelecionarTodos()
+            .Any(c => c.Garcon != null && c.Garcon.Id == id);
+
+        if (garconEmUso)
+            return Falha(
+                string.Empty,
+                "Não é possível excluir este garçom, pois ele está vinculado a uma conta."
+            );
 
         repositorioGarcon.Excluir(id);
 

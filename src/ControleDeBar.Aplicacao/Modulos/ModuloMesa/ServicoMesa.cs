@@ -1,11 +1,16 @@
 using System;
 using ControleDeBar.Aplicacao.Compartilhado;
+using ControleDeBar.Dominio.Modulos.ModuloContas;
 using ControleDeBar.Dominio.Modulos.ModuloMesa;
 using FluentResults;
 
 namespace ControleDeBar.Aplicacao.Modulos.ModuloMesa;
 
-public class ServicoMesa(IRepositorioMesa repositorioMesa) : ServicoBase<Mesa>
+
+public class ServicoMesa(
+    IRepositorioMesa repositorioMesa,
+    IRepositorioContas repositorioContas
+) : ServicoBase<Mesa>
 {
     public Result Cadastrar(CadastrarMesaDto dto)
     {
@@ -58,6 +63,16 @@ public class ServicoMesa(IRepositorioMesa repositorioMesa) : ServicoBase<Mesa>
 
         if (mesa == null)
             return Falha(string.Empty, "Mesa não encontrada.");
+
+        bool mesaEmUso = repositorioContas
+            .SelecionarTodos()
+            .Any(c => c.Mesa != null && c.Mesa.Id == id);
+
+        if (mesaEmUso)
+            return Falha(
+                string.Empty,
+                "Não é possível excluir esta mesa, pois ela está vinculada a uma conta."
+            );
 
         repositorioMesa.Excluir(id);
 

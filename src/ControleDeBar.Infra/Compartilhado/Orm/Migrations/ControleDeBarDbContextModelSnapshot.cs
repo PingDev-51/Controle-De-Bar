@@ -388,7 +388,7 @@ namespace ControleDeBar.Infra.Compartilhado.Orm.Migrations
                     b.HasOne("ControleDeBar.Dominio.Modulos.ModuloContas.Conta", "Conta")
                         .WithMany()
                         .HasForeignKey("ContaId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("FK_TBPedidos_TBContas");
 

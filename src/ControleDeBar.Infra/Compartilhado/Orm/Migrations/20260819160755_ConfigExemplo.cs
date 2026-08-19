@@ -244,7 +244,8 @@ namespace ControleDeBar.Infra.Compartilhado.Orm.Migrations
                         name: "FK_TBPedidos_TBContas",
                         column: x => x.ContaId,
                         principalTable: "TBContas",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_TBPedidos_TBProdutos",
                         column: x => x.ProdutoId,

@@ -157,5 +157,36 @@ public sealed class ServicoProdutoTests
         );
     }
 
+    [TestMethod]
+    public void Excluir_ProdutoCadastrado_DeveExcluirComSucesso()
+    {
+        // Arrange
+        Produto produto = new(
+            "Coca-Cola",
+            10
+        );
+
+        Mock<IRepositorioProduto> repositorioProduto = new();
+
+        repositorioProduto
+            .Setup(r => r.SelecionarPorId(produto.Id))
+            .Returns(produto);
+
+        ServicoProduto servicoProduto = new(
+            repositorioProduto.Object
+        );
+
+        // Act
+        Result resultado = servicoProduto.Excluir(produto.Id);
+
+        // Assert
+        Assert.IsTrue(resultado.IsSuccess);
+
+        repositorioProduto.Verify(
+            r => r.Excluir(It.IsAny<Guid>()),
+            Times.Once
+        );
+    }
+
 
 }

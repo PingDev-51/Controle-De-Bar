@@ -58,9 +58,5 @@ public sealed class ProdutoTests()
 
         // Assert
         Assert.HasCount(0, erros);
-      
     }
-
-
-
 }

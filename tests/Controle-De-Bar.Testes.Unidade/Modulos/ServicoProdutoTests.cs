@@ -1,5 +1,6 @@
 using ControleDeBar.Aplicacao.Modulos.ModuloProduto;
 using ControleDeBar.Dominio.Modulos.ModuloProduto;
+using FluentAssertions;
 using FluentResults;
 using Moq;
 
@@ -103,6 +104,55 @@ public sealed class ServicoProdutoTests
                 produto.Id,
                 It.Is<Produto>(p => p.Preco == 20)
             ),
+            Times.Once
+        );
+    }
+
+    [TestMethod]
+    public void SelecionarTodos_DeveRetornarTodosOsProdutos()
+    {
+        // Arrange
+        Mock<IRepositorioProduto> repositorioProduto = new();
+
+        Produto produto1 = new(
+            "Coca-Cola",
+            10
+        );
+
+        Produto produto2 = new(
+            "Dreher",
+            30
+        );
+
+        repositorioProduto
+            .Setup(r => r.SelecionarTodos())
+            .Returns([produto1, produto2]);
+
+        ServicoProduto servicoProduto = new(
+            repositorioProduto.Object
+        );
+
+        // Act
+        List<ListarProdutoDto> resultado = servicoProduto.SelecionarTodos();
+
+        // Assert
+        resultado.Should().HaveCount(2);
+
+        resultado.Should().BeEquivalentTo(
+            new ListarProdutoDto(
+                produto1.Id,
+                produto1.Nome,
+                produto1.Preco
+            ),
+            new ListarProdutoDto(
+                produto2.Id,
+                produto2.Nome,
+                produto2.Preco
+            )
+        );
+
+        repositorioProduto.Verify(
+            r => r.SelecionarTodos(),
             Times.Once
         );
     }

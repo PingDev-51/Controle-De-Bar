@@ -1,60 +1,79 @@
-// // using eAgenda.Infra.Compartilhado.Orm; configurar
-// // using eAgenda.WebApp;
-// using Microsoft.AspNetCore.Hosting;
-// using Microsoft.AspNetCore.Hosting.Server;
-// using Microsoft.AspNetCore.Hosting.Server.Features;
-// using Microsoft.AspNetCore.Mvc.Testing;
-// using Microsoft.EntityFrameworkCore;
-// using Microsoft.EntityFrameworkCore.Infrastructure;
-// using Microsoft.EntityFrameworkCore.Storage;
-// using Microsoft.Extensions.DependencyInjection;
-// using Microsoft.Extensions.DependencyInjection.Extensions;
+using ControleDeBar.Infra.Compartilhado.Orm;
+using ControleDeBar.WebApp;
+using GeradorDeProvas.Infra.Compartilhado.Orm;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Hosting.Server;
+using Microsoft.AspNetCore.Hosting.Server.Features;
+using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.InMemory.Storage.Internal;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
-// namespace eAgenda.Testes.E2E.Compartilhado;
+namespace ControleDeBar.Testes.E2E.Compartilhado;
 
-// public sealed class TestApplicationFactory : WebApplicationFactory<EntryPoint>
-// {
-//     private readonly string nomeBanco;
-//     protected InMemoryDatabaseRoot dbRoot;
-//     public string UrlBase { get; }
+public sealed class TestApplicationFactory : WebApplicationFactory<Entrypoint>
+{
+    private readonly string nomeBanco;
 
-//     public TestApplicationFactory()
-//     {
-//         nomeBanco = $"e2e-{Guid.NewGuid():N}";
+    protected InMemoryDatabaseRoot dbRoot;
 
-//         UseKestrel(0);
-//         StartServer();
+    public string UrlBase { get; }
 
-//         UrlBase = ObterUrlKestrel();
-//     }
+    public TestApplicationFactory()
+    {
+        nomeBanco = $"e2e-{Guid.NewGuid():N}";
 
-//     protected override void ConfigureWebHost(IWebHostBuilder builder)
-//     {
-//         builder.UseEnvironment("Testing");
-//         builder.UseSetting("Infra:NewRelic:Enabled", "False");
-//         builder.ConfigureServices(services =>
-//         {
-//             services.RemoveAll<DbContextOptions<EAgendaDbContext>>();
-//             services.RemoveAll<IDbContextOptionsConfiguration<EAgendaDbContext>>();
+        UseKestrel(0);
+        StartServer();
 
-//             services.AddDbContext<EAgendaDbContext>(options =>
-//             {
-//                 options.UseInMemoryDatabase(nomeBanco, dbRoot);
-//             });
-//         });
-//     }
+        UrlBase = ObterUrlKestrel();
+    }
 
-//     private string ObterUrlKestrel()
-//     {
-//         IServer servidor = Services.GetRequiredService<IServer>();
+    protected override void ConfigureWebHost(IWebHostBuilder builder)
+    {
+        builder.UseEnvironment("Testing");
 
-//         IServerAddressesFeature? enderecos = servidor.Features.Get<IServerAddressesFeature>();
+        builder.UseSetting(
+            "Infra:NewRelic:Enabled",
+            "False"
+        );
 
-//         if (enderecos is null)
-//             throw new InvalidOperationException("Não foi possível obter a URL do servidor");
+        builder.ConfigureServices(services =>
+        {
+            services.RemoveAll<
+                DbContextOptions<ControleDeBarDbContext>
+            >();
 
-//         return enderecos.Addresses.Single();
-//     }
-// }
+            services.RemoveAll<
+                IDbContextOptionsConfiguration<ControleDeBarDbContext>
+            >();
 
-// faltou configurar o este arquivo
+            services.AddDbContext<ControleDeBarDbContext>(options =>
+            {
+                options.UseInMemoryDatabase(
+                    nomeBanco,
+                    dbRoot
+                );
+            });
+        });
+    }
+
+    private string ObterUrlKestrel()
+    {
+        IServer servidor =
+            Services.GetRequiredService<IServer>();
+
+        IServerAddressesFeature? enderecos =
+            servidor.Features.Get<IServerAddressesFeature>();
+
+        if (enderecos is null)
+            throw new InvalidOperationException(
+                "Não foi possível obter a URL do servidor"
+            );
+
+        return enderecos.Addresses.Single();
+    }
+}

@@ -1,78 +1,119 @@
-
-using Microsoft.EntityFrameworkCore;
+using ControleDeBar.Dominio.Modulos.ModuloContas;
+using ControleDeBar.Dominio.Modulos.ModuloGarcon;
+using ControleDeBar.Dominio.Modulos.ModuloMesa;
+using ControleDeBar.Dominio.Modulos.ModuloPedido;
+using ControleDeBar.Dominio.Modulos.ModuloProduto;
+using ControleDeBar.Infra.Modulos.ModuloContas;
+using ControleDeBar.Infra.Modulos.ModuloGarcon;
+using ControleDeBar.Infra.Modulos.ModuloMesa;
+using ControleDeBar.Infra.Modulos.ModuloPedido;
+using ControleDeBar.Infra.Modulos.ModuloProduto;
+using ControleDeBar.Testes.Integracao.Compartilhado.Identity;
 using FizzWare.NBuilder;
+using GeradorDeProvas.Infra.Compartilhado.Orm;
+using Microsoft.EntityFrameworkCore;
 
-
-
-namespace eAgenda.Testes.Integracao.Compartilhado.Orm;
+namespace ControleDeBar.Testes.Integracao.Compartilhado.Orm;
 
 public abstract class RepositorioBaseEmOrmTests
 {
-    // protected EAgendaDbContext dbContext = null!;
-    // protected RepositorioCategoriaEmOrm repositorioCategoria = null!;
+    protected ControleDeBarDbContext dbContext = null!;
 
-
-    //mudar na hora de desenvolver vou deixar um como base, dps so substiruir e continuar codando
+    protected RepositorioContaEmOrm repositorioConta = null!;
+    protected RepositorioGarconEmOrm repositorioGarcon = null!;
+    protected RepositorioMesaEmOrm repositorioMesa = null!;
+    protected RepositorioPedidoEmOrm repositorioPedido = null!;
+    protected RepositorioProdutoEmOrm repositorioProduto = null!;
 
     [TestInitialize]
     public void InicializarContexto()
     {
+        Guid userId = Guid.NewGuid();
 
-        // Categoria
-        // repositorioCategoria = new RepositorioCategoriaEmOrm(dbContext);
+        DbContextOptions<ControleDeBarDbContext> options =
+            new DbContextOptionsBuilder<ControleDeBarDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .Options;
 
-        // BuilderSetup.SetCreatePersistenceMethod<Categoria>(repositorioCategoria.Cadastrar);
-        // BuilderSetup.SetCreatePersistenceMethod<IList<Categoria>>((categorias) =>
-        // {
-        //     foreach (Categoria d in categorias)
-        //         repositorioCategoria.Cadastrar(d);
-        // });
-
-        // // Compromisso
-        // repositorioCompromisso = new RepositorioCompromissoEmOrm(dbContext);
-
-        // BuilderSetup.SetCreatePersistenceMethod<Compromisso>(repositorioCompromisso.Cadastrar);
-        // BuilderSetup.SetCreatePersistenceMethod<IList<Compromisso>>((compromisso) =>
-        // {
-        //     foreach (Compromisso c in compromisso)
-        //         repositorioCompromisso.Cadastrar(c);
-        // });
-
-        // // Questao
-        // repositorioContato = new RepositorioContatoEmOrm(dbContext);
-
-        // BuilderSetup.SetCreatePersistenceMethod<Contato>(repositorioContato.Cadastrar);
-        // BuilderSetup.SetCreatePersistenceMethod<IList<Contato>>((contatos) =>
-        // {
-        //     foreach (Contato c in contatos)
-        //         repositorioContato.Cadastrar(c);
-        // });
-
-        // // Prova
-        // repositorioDespesa = new RepositorioDespesaEmOrm(dbContext);
-
-        // BuilderSetup.SetCreatePersistenceMethod<Despesa>(repositorioDespesa.Cadastrar);
-        // BuilderSetup.SetCreatePersistenceMethod<IList<Despesa>>((despesas) =>
-        // {
-        //     foreach (Despesa d in despesas)
-        //         repositorioDespesa.Cadastrar(d);
-        // });
+        dbContext = new ControleDeBarDbContext(
+            options,
+            new ProvedorDeUsuarioFake(userId)
+        );
 
 
-        // // Tarefa
-        // repositorioTarefa = new RepositorioTarefaEmOrm(dbContext);
+        // Conta
+        repositorioConta = new RepositorioContaEmOrm(dbContext);
 
-        // BuilderSetup.SetCreatePersistenceMethod<Tarefa>(repositorioTarefa.Cadastrar);
-        // BuilderSetup.SetCreatePersistenceMethod<IList<Tarefa>>((tarefas) =>
-        // {
-        //     foreach (Tarefa t in tarefas)
-        //         repositorioTarefa.Cadastrar(t);
-        // });
+        BuilderSetup.SetCreatePersistenceMethod<Conta>(
+            repositorioConta.Cadastrar
+        );
+
+        BuilderSetup.SetCreatePersistenceMethod<IList<Conta>>((contas) =>
+        {
+            foreach (Conta c in contas)
+                repositorioConta.Cadastrar(c);
+        });
+
+
+        // Garcon
+        repositorioGarcon = new RepositorioGarconEmOrm(dbContext);
+
+        BuilderSetup.SetCreatePersistenceMethod<Garcon>(
+            repositorioGarcon.Cadastrar
+        );
+
+        BuilderSetup.SetCreatePersistenceMethod<IList<Garcon>>((garcons) =>
+        {
+            foreach (Garcon g in garcons)
+                repositorioGarcon.Cadastrar(g);
+        });
+
+
+        // Mesa
+        repositorioMesa = new RepositorioMesaEmOrm(dbContext);
+
+        BuilderSetup.SetCreatePersistenceMethod<Mesa>(
+            repositorioMesa.Cadastrar
+        );
+
+        BuilderSetup.SetCreatePersistenceMethod<IList<Mesa>>((mesas) =>
+        {
+            foreach (Mesa m in mesas)
+                repositorioMesa.Cadastrar(m);
+        });
+
+
+        // Pedido
+        repositorioPedido = new RepositorioPedidoEmOrm(dbContext);
+
+        BuilderSetup.SetCreatePersistenceMethod<Pedido>(
+            repositorioPedido.Cadastrar
+        );
+
+        BuilderSetup.SetCreatePersistenceMethod<IList<Pedido>>((pedidos) =>
+        {
+            foreach (Pedido p in pedidos)
+                repositorioPedido.Cadastrar(p);
+        });
+
+
+        // Produto
+        repositorioProduto = new RepositorioProdutoEmOrm(dbContext);
+
+        BuilderSetup.SetCreatePersistenceMethod<Produto>(
+            repositorioProduto.Cadastrar
+        );
+
+        BuilderSetup.SetCreatePersistenceMethod<IList<Produto>>((produtos) =>
+        {
+            foreach (Produto p in produtos)
+                repositorioProduto.Cadastrar(p);
+        });
     }
 
     [TestCleanup]
     public void DescartarContexto()
     {
-        // dbContext.Dispose();
+        dbContext.Dispose();
     }
 }

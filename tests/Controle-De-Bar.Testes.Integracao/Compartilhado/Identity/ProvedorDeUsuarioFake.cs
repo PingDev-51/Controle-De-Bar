@@ -1,6 +1,6 @@
 using ControleDeBar.Dominio.Compartilhado.Identity;
 
-namespace ControleDeBar.Testes.Integracao.Compartilhado.Identity;
+namespace Controle_De_Bar.Testes.Integracao.Compartilhado.Identity;
 
 public sealed class ProvedorDeUsuarioFake(Guid id) : IProvedorDeUsuario
 {

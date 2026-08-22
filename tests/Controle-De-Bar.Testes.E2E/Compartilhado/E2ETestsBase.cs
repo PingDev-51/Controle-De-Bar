@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Playwright;
 using Microsoft.Playwright.MSTest;
 
-namespace ControleDeBar.Testes.E2E.Compartilhado;
+namespace Controle_De_Bar.Testes.E2E.Compartilhado;
 
 public abstract class E2ETestsBase : PageTest
 {
@@ -33,18 +33,15 @@ public abstract class E2ETestsBase : PageTest
         }
     }
 
-    protected async Task RegistrarUsuarioAsync(
-        string email,
-        string senha)
+    protected async Task RegistrarUsuarioAsync(string email, string senha)
     {
-        using IServiceScope scope =
-            aplicacao.Services.CreateScope();
+        using IServiceScope scope = aplicacao.Services.CreateScope();
 
         UserManager<IdentityUser<Guid>> userManager =
             scope.ServiceProvider
                 .GetRequiredService<UserManager<IdentityUser<Guid>>>();
 
-        IdentityUser<Guid> user = new IdentityUser<Guid>()
+        IdentityUser<Guid> usuario = new IdentityUser<Guid>
         {
             Id = Guid.CreateVersion7(),
             UserName = email,
@@ -52,22 +49,18 @@ public abstract class E2ETestsBase : PageTest
         };
 
         IdentityResult resultado =
-            await userManager.CreateAsync(user, senha);
+            await userManager.CreateAsync(usuario, senha);
 
         Assert.IsTrue(
             resultado.Succeeded,
             string.Join(
                 "; ",
-                resultado.Errors.Select(
-                    erro => erro.Description
-                )
+                resultado.Errors.Select(erro => erro.Description)
             )
         );
     }
 
-    protected async Task RegistrarEEntrarAsync(
-        string email,
-        string senha)
+    protected async Task RegistrarEEntrarAsync(string email, string senha)
     {
         await RegistrarUsuarioAsync(email, senha);
 
@@ -75,8 +68,7 @@ public abstract class E2ETestsBase : PageTest
             $"{UrlBase}/Autenticacao/Entrar"
         );
 
-        await Page.GetByLabel("E-mail")
-            .FillAsync(email);
+        await Page.GetByLabel("E-mail").FillAsync(email);
 
         await Page.GetByLabel(
             "Senha",

@@ -12,13 +12,12 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace ControleDeBar.Testes.E2E.Compartilhado;
-
+namespace Controle_De_Bar.Testes.E2E.Compartilhado;
 public sealed class TestApplicationFactory : WebApplicationFactory<Entrypoint>
 {
     private readonly string nomeBanco;
 
-    protected InMemoryDatabaseRoot dbRoot;
+    private readonly InMemoryDatabaseRoot dbRoot = new();
 
     public string UrlBase { get; }
 

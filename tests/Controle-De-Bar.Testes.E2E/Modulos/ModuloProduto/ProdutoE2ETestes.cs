@@ -1,11 +1,39 @@
 using Controle_De_Bar.Testes.E2E.Compartilhado;
 using Controle_De_Bar.Testes.E2E.Modulos.ModuloProduto;
+using Microsoft.Playwright;
 
 namespace ControleDeBar.Testes.E2E.Modulos.ModuloProduto;
 
 [TestClass]
 public sealed class ProdutoE2ETests : E2ETestsBase
 {
+
+    [TestMethod]
+    public async Task DeveExibir_ListagemVazia_ParaUsuario_SemProdutos()
+    {
+        // Arrange
+        await RegistrarEEntrarAsync("Produto.listagem@teste.local", "Senha123!");
+
+        // Act
+        await Page.GotoAsync($"{UrlBase}/Produto/Listar");
+
+        // Assert
+        Assert.AreEqual(
+            "/Produto/Listar",
+            new Uri(Page.Url).AbsolutePath
+        );
+
+        // Heading = h1, h2, h3, h4, h5, h6
+        await Expect(Page.GetByRole(AriaRole.Heading, new() { Name = "Listagem de Produtos" }))
+            .ToBeVisibleAsync();
+
+        await Expect(Page.GetByRole(AriaRole.Link, new() { Name = "Cadastrar Novo" }))
+            .ToBeVisibleAsync();
+
+        await Expect(Page.GetByText("Nenhuma Produto cadastrado.", new() { Exact = true }))
+            .ToBeVisibleAsync();
+    }
+    
     [TestMethod]
     public async Task DeveCadastrar_ProdutoComNomeEPrecoValidos()
     {
@@ -40,8 +68,6 @@ public sealed class ProdutoE2ETests : E2ETestsBase
             listarPage.PrecoDoProduto("Cerveja", "10,00")
         ).ToBeVisibleAsync();
     }
-
-
 
     [TestMethod]
     public async Task DeveEditar_ProdutoAlterandoPreco()

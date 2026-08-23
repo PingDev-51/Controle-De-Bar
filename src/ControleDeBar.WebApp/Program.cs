@@ -51,6 +51,7 @@ app.UseRouting();
 // Middlewares de Auth
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseStaticFiles();
 
 // Middleware de reconhecimento de rotas de controllers
 app.MapDefaultControllerRoute();

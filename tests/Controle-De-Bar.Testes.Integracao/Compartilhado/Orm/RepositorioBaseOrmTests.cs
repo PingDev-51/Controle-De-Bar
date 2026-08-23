@@ -16,7 +16,6 @@ namespace ControleDeBar.Testes.Integracao.Compartilhado.Orm;
 public abstract class RepositorioBaseEmOrmTests
 {
     protected ControleDeBarDbContext dbContext = null!;
-
     protected RepositorioProdutoEmOrm repositorioProduto = null!;
     protected RepositorioMesaEmOrm repositorioMesa = null!;
     protected RepositorioContaEmOrm repositorioConta = null!;

@@ -6,6 +6,8 @@ using FizzWare.NBuilder;
 using Microsoft.EntityFrameworkCore;
 using GeradorDeProvas.Infra.Compartilhado.Orm;
 using Controle_De_Bar.Testes.Integracao.Compartilhado.Identity;
+using ControleDeBar.Infra.Modulos.ModuloContas;
+using ControleDeBar.Dominio.Modulos.ModuloContas;
 
 namespace ControleDeBar.Testes.Integracao.Compartilhado.Orm;
 
@@ -13,6 +15,9 @@ public abstract class RepositorioBaseEmOrmTests
 {
     protected ControleDeBarDbContext dbContext = null!;
     protected RepositorioProdutoEmOrm repositorioProduto = null!;
+
+
+    protected RepositorioContaEmOrm repositorioConta = null!;
 
     protected Guid userId;
 
@@ -22,6 +27,7 @@ public abstract class RepositorioBaseEmOrmTests
         userId = Guid.NewGuid();
 
         dbContext = CriarDbContext(userId);
+
 
         // Produto
         repositorioProduto = new RepositorioProdutoEmOrm(dbContext);
@@ -34,6 +40,20 @@ public abstract class RepositorioBaseEmOrmTests
         {
             foreach (Produto p in produtos)
                 repositorioProduto.Cadastrar(p);
+        });
+
+
+        // Conta
+        repositorioConta = new RepositorioContaEmOrm(dbContext);
+
+        BuilderSetup.SetCreatePersistenceMethod<Conta>(
+            repositorioConta.Cadastrar
+        );
+
+        BuilderSetup.SetCreatePersistenceMethod<IList<Conta>>((contas) =>
+        {
+            foreach (Conta c in contas)
+                repositorioConta.Cadastrar(c);
         });
     }
 

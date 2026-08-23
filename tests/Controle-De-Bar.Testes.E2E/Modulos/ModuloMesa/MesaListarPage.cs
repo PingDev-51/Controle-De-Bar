@@ -2,7 +2,7 @@ using Microsoft.Playwright;
 
 namespace Controle_De_Bar.Testes.E2E.Modulos.ModuloMesa;
 
-public class MesaListarPage(
+public sealed class MesaListarPage(
     IPage page,
     string urlBase
 )
@@ -24,17 +24,19 @@ public class MesaListarPage(
         new() { Exact = true }
     );
 
-    public ILocator Mesa(string numeroDaMesa) => page.GetByRole(
-        AriaRole.Heading,
-        new() { Name = $"Mesa N° {numeroDaMesa}", Exact = true }
-    );
+    public ILocator NumeroDaMesa(string numero)
+    {
+        return page.GetByText(
+            $"Mesa N° {numero}",
+            new() { Exact = true }
+        );
+    }
 
     public ILocator QuantidadeDeLugares(
-        string numeroDaMesa,
-        string quantidade
-    )
+        string numero,
+        string quantidade)
     {
-        ILocator card = CardPorMesa(numeroDaMesa);
+        ILocator card = CardPorNumero(numero);
 
         return card.GetByText(
             quantidade,
@@ -43,11 +45,10 @@ public class MesaListarPage(
     }
 
     public ILocator StatusDaMesa(
-        string numeroDaMesa,
-        string status
-    )
+        string numero,
+        string status)
     {
-        ILocator card = CardPorMesa(numeroDaMesa);
+        ILocator card = CardPorNumero(numero);
 
         return card.GetByText(
             status,
@@ -60,9 +61,9 @@ public class MesaListarPage(
         await page.GotoAsync(Url);
     }
 
-    public async Task EditarAsync(string numeroDaMesa)
+    public async Task EditarAsync(string numero)
     {
-        await CardPorMesa(numeroDaMesa)
+        await CardPorNumero(numero)
             .GetByRole(
                 AriaRole.Link,
                 new() { Name = "Editar", Exact = true }
@@ -70,21 +71,11 @@ public class MesaListarPage(
             .ClickAsync();
     }
 
-    public async Task ExcluirAsync(string numeroDaMesa)
+    private ILocator CardPorNumero(string numero)
     {
-        await CardPorMesa(numeroDaMesa)
-            .GetByRole(
-                AriaRole.Link,
-                new() { Name = "Excluir", Exact = true }
-            )
-            .ClickAsync();
-    }
-
-    private ILocator CardPorMesa(string numeroDaMesa)
-    {
-        ILocator mesa = Mesa(numeroDaMesa);
+        ILocator numeroMesa = NumeroDaMesa(numero);
 
         return page.Locator(".card")
-            .Filter(new() { Has = mesa });
+            .Filter(new() { Has = numeroMesa });
     }
 }

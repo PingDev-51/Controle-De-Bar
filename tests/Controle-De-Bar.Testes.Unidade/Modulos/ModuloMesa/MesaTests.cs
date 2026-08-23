@@ -24,7 +24,7 @@ public sealed class MesaTests()
     }
 
     [TestMethod]
-    public void CadastrarProduto_ComONumeroDaMesaInvalido()
+    public void CadastrarMesa_ComONumeroDaMesaInvalido()
     {
         // Arrange
         Mesa mesa = new Mesa()
@@ -44,7 +44,7 @@ public sealed class MesaTests()
     }
 
     [TestMethod]
-    public void CadastrarProduto_ComOQuantidadeDeLugaresInvalido()
+    public void CadastrarMesa_ComOQuantidadeDeLugaresInvalido()
     {
         // Arrange
         Mesa mesa = new Mesa()
@@ -64,7 +64,7 @@ public sealed class MesaTests()
     }
 
     [TestMethod]
-    public void AtualizarProduto()
+    public void AtualizarMesa()
     {
         // Arrange
         Mesa mesa = new Mesa(

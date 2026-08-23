@@ -1,3 +1,4 @@
+using System.Globalization;
 using ControleDeBar.Aplicacao;
 using ControleDeBar.Infra;
 using ControleDeBar.Infra.Compartilhado.Orm;
@@ -5,6 +6,11 @@ using ControleDeBar.WebApp.Compartilhado;
 using GeradorDeProvas.Infra.Compartilhado.Orm;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+
+var cultura = new CultureInfo("pt-BR");
+
+CultureInfo.DefaultThreadCurrentCulture = cultura;
+CultureInfo.DefaultThreadCurrentUICulture = cultura;
 
 var builder = WebApplication.CreateBuilder(args);
 

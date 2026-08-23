@@ -1,3 +1,4 @@
+@using System.Globalization
 @using ControleDeBar.WebApp.Modulos.ModuloPedido
 
 @{
@@ -61,7 +62,7 @@ else
                                 Total
                             </dt>
                             <dd class="col-7 mb-0 text-break">
-                                @pedido.Total.ToString("C")
+                                @pedido.Total.ToString("C", new CultureInfo("pt-BR"))
                             </dd>
 
                         </dl>

@@ -1,3 +1,4 @@
+@using System.Globalization
 @using ControleDeBar.WebApp.Modulos.ModuloProduto
 
 @{
@@ -46,7 +47,7 @@ else
                         <dl class="row g-2 mb-4">
                             <dt class="col-5 text-secondary fw-semibold">Preço</dt>
                             <dd class="col-7 mb-0 text-break">
-                                R$ @p.Preco.ToString("N2")
+                                R$ R$ @p.Preco.ToString("N2", CultureInfo.GetCultureInfo("pt-BR"))
                             </dd>
                         </dl>
 

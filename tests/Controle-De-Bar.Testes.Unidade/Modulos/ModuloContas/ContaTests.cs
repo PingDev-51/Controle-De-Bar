@@ -2,7 +2,7 @@ using ControleDeBar.Dominio.Modulos.ModuloContas;
 using ControleDeBar.Dominio.Modulos.ModuloGarcon;
 using ControleDeBar.Dominio.Modulos.ModuloMesa;
 
-namespace Controle_De_Bar.Testes.Unidade.Modulos.ModuloConta;
+namespace Controle_De_Bar.Testes.Unidade.Modulos.ModuloContas;
 
 [TestClass]
 public sealed class ContaTests()

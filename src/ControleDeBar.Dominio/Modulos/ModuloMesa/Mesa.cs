@@ -36,7 +36,7 @@ public class Mesa : EntidadeBase<Mesa>, IEntidadeDoUsuario
             erros.Add("O Campo Numero Da Mesa precisa ser preenchido;");
 
         if (string.IsNullOrWhiteSpace(QuantidadeDeLugares))
-            erros.Add("O Campo Quantidade De Lugares ser preenchido;");
+            erros.Add("O Campo Quantidade De Lugares precisa ser preenchido;");
 
         return erros;
     }

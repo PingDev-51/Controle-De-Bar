@@ -8,6 +8,8 @@ using GeradorDeProvas.Infra.Compartilhado.Orm;
 using Controle_De_Bar.Testes.Integracao.Compartilhado.Identity;
 using ControleDeBar.Infra.Modulos.ModuloContas;
 using ControleDeBar.Dominio.Modulos.ModuloContas;
+using ControleDeBar.Infra.Modulos.ModuloMesa;
+using ControleDeBar.Dominio.Modulos.ModuloMesa;
 
 namespace ControleDeBar.Testes.Integracao.Compartilhado.Orm;
 
@@ -15,6 +17,7 @@ public abstract class RepositorioBaseEmOrmTests
 {
     protected ControleDeBarDbContext dbContext = null!;
     protected RepositorioProdutoEmOrm repositorioProduto = null!;
+    protected RepositorioMesaEmOrm repositorioMesa = null!;
 
 
     protected RepositorioContaEmOrm repositorioConta = null!;
@@ -31,9 +34,14 @@ public abstract class RepositorioBaseEmOrmTests
 
         // Produto
         repositorioProduto = new RepositorioProdutoEmOrm(dbContext);
+        repositorioMesa = new RepositorioMesaEmOrm(dbContext);
 
         BuilderSetup.SetCreatePersistenceMethod<Produto>(
             repositorioProduto.Cadastrar
+        );
+
+        BuilderSetup.SetCreatePersistenceMethod<Mesa>(
+            repositorioMesa.Cadastrar
         );
 
         BuilderSetup.SetCreatePersistenceMethod<IList<Produto>>((produtos) =>
@@ -42,18 +50,10 @@ public abstract class RepositorioBaseEmOrmTests
                 repositorioProduto.Cadastrar(p);
         });
 
-
-        // Conta
-        repositorioConta = new RepositorioContaEmOrm(dbContext);
-
-        BuilderSetup.SetCreatePersistenceMethod<Conta>(
-            repositorioConta.Cadastrar
-        );
-
-        BuilderSetup.SetCreatePersistenceMethod<IList<Conta>>((contas) =>
+        BuilderSetup.SetCreatePersistenceMethod<IList<Mesa>>((mesa) =>
         {
-            foreach (Conta c in contas)
-                repositorioConta.Cadastrar(c);
+            foreach (Mesa m in mesa)
+                repositorioMesa.Cadastrar(m);
         });
     }
 

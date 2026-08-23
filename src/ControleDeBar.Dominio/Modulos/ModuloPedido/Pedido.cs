@@ -14,7 +14,7 @@ public class Pedido : EntidadeBase<Pedido>, IEntidadeDoUsuario
     public Guid ProdutoId { get; set; }
     public Produto? Produto { get; set; }
     public int Quantidade { get; set; }
-    public decimal Total { get; private set; }
+    public decimal Total { get; set; }
 
     public Pedido() { }
 

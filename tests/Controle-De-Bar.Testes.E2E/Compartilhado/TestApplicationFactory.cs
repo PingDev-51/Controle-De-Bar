@@ -13,17 +13,19 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Controle_De_Bar.Testes.E2E.Compartilhado;
+
 public sealed class TestApplicationFactory : WebApplicationFactory<Entrypoint>
 {
-    private readonly string nomeBanco;
 
-    private readonly InMemoryDatabaseRoot dbRoot = new();
+    private readonly string nomeBanco;
+    protected InMemoryDatabaseRoot dbRoot;
 
     public string UrlBase { get; }
 
     public TestApplicationFactory()
     {
         nomeBanco = $"e2e-{Guid.NewGuid():N}";
+        dbRoot = new InMemoryDatabaseRoot();
 
         UseKestrel(0);
         StartServer();
@@ -42,13 +44,8 @@ public sealed class TestApplicationFactory : WebApplicationFactory<Entrypoint>
 
         builder.ConfigureServices(services =>
         {
-            services.RemoveAll<
-                DbContextOptions<ControleDeBarDbContext>
-            >();
-
-            services.RemoveAll<
-                IDbContextOptionsConfiguration<ControleDeBarDbContext>
-            >();
+            services.RemoveAll<DbContextOptions<ControleDeBarDbContext>>();
+            services.RemoveAll<IDbContextOptionsConfiguration<ControleDeBarDbContext>>();
 
             services.AddDbContext<ControleDeBarDbContext>(options =>
             {

@@ -3,7 +3,7 @@
   <Playwright>
     <BrowserName>chromium</BrowserName>
     <LaunchOptions>
-      <Headless>true</Headless>
+      <Headless> true</Headless>
     </LaunchOptions>
   </Playwright>
 </RunSettings>

@@ -30,7 +30,7 @@ public sealed class ProdutoE2ETests : E2ETestsBase
         await Expect(Page.GetByRole(AriaRole.Link, new() { Name = "Cadastrar Novo" }))
             .ToBeVisibleAsync();
 
-        await Expect(Page.GetByText("Nenhuma Produto cadastrado.", new() { Exact = true }))
+        await Expect(Page.GetByText("Nenhum produto cadastrado.", new() { Exact = true }))
             .ToBeVisibleAsync();
     }
     

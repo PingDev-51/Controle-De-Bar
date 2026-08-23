@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build-and-test:
     runs-on: windows-latest
     permissions:
       contents: read #This is required for actions/checkout
@@ -26,6 +26,19 @@ jobs:
       - name: Build with dotnet
         run: dotnet build --configuration Release
 
+      - name: Install Playwright Chromium
+        shell: pwsh
+        run: tests/Controle-De-Bar.Testes.E2E/bin/Release/net10.0/playwright.ps1 install chromium
+
+      - name: Run tests
+        run: |
+          dotnet test tests/Controle-De-Bar.Testes.Unidade/Controle-De-Bar.Testes.Unidade.csproj --configuration Release --no-build
+          dotnet test tests/Controle-De-Bar.Testes.Integracao/Controle-De-Bar.Testes.Integracao.csproj --configuration Release --no-build
+          dotnet test tests/Controle-De-Bar.Testes.E2E/Controle-De-Bar.Testes.E2E.csproj `
+            --configuration Release `
+            --no-build `
+            --settings tests/Controle-De-Bar.Testes.E2E/playwright.runsettings
+
       - name: dotnet publish
         run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
 
@@ -37,7 +50,7 @@ jobs:
 
   migrate:
     runs-on: windows-latest
-    needs: build
+    needs: build-and-test
     permissions:
       contents: read #This is required for actions/checkout
 
@@ -68,7 +81,7 @@ jobs:
 
   deploy:
     runs-on: windows-latest
-    needs: build
+    needs: [build-and-test, migrate]
     permissions:
       id-token: write #This is required for requesting the JWT
       contents: read #This is required for actions/checkout

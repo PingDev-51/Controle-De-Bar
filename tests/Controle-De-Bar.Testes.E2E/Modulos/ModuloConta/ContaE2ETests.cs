@@ -18,11 +18,11 @@ public sealed class ContaE2ETests : E2ETestsBase
         );
 
         // Act
-        await Page.GotoAsync($"{UrlBase}/Contas/Listar");
+        await Page.GotoAsync($"{UrlBase}/Conta/Listar");
 
         // Assert
         Assert.AreEqual(
-            "/Contas/Listar",
+            "/Conta/Listar",
             new Uri(Page.Url).AbsolutePath
         );
 
@@ -64,7 +64,7 @@ public sealed class ContaE2ETests : E2ETestsBase
         await CadastrarMesaAsync(
             "10",
             "4",
-            "Aberta"
+            "1"
         );
 
         ContaFormPage formPage = new(Page, UrlBase);
@@ -74,9 +74,9 @@ public sealed class ContaE2ETests : E2ETestsBase
         await formPage.IrParaCadastroAsync();
 
         await formPage.PreencherAsync(
-            "Kauan", 
-            "João",  
-            "10"     
+            "Kauan",
+            "João",
+            "10"
         );
 
         await formPage.ConfirmarAsync();

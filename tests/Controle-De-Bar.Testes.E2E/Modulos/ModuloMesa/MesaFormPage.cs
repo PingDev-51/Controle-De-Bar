@@ -19,7 +19,7 @@ public sealed class MesaFormPage(
         page.GetByLabel("Quantidade de lugares na mesa");
 
     public ILocator StatusDaMesa =>
-        page.GetByLabel("status da mesa");
+        page.Locator("#StatusDaMesa");
 
     public async Task IrParaCadastroAsync()
     {

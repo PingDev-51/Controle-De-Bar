@@ -106,14 +106,6 @@ public class ServicoGarconTests
 
         // Assert
         Assert.IsTrue(resultado.IsSuccess);
-
-        // repositorioGarcon.Verify(
-        //     r => r.Editar(
-        //         garcon.Id,
-        //         It.Is<Garcon>(p => p.Preco == 20)
-        //     ),
-        //     Times.Once
-        // );
     }
 
     [TestMethod]

@@ -27,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Modulos\ModuloDono\" />
     <Folder Include="Modulos\ModuloMesa\" />
   </ItemGroup>
 

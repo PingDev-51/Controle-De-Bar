@@ -20,7 +20,8 @@ public sealed class AutenticacaoController(
     }
 
     [HttpPost]
-    public async Task<ActionResult> Registrar(RegistrarViewModel viewModel)
+    public async Task<ActionResult> Registrar(
+        RegistrarViewModel viewModel)
     {
         if (signInManager.IsSignedIn(User))
             return RedirectToAction("Index", "Home");
@@ -28,24 +29,36 @@ public sealed class AutenticacaoController(
         if (!ModelState.IsValid)
             return View(viewModel);
 
-        IdentityUser<Guid> user = new IdentityUser<Guid>()
+        IdentityUser<Guid> user = new()
         {
             Id = Guid.CreateVersion7(),
             UserName = viewModel.Email,
             Email = viewModel.Email
         };
 
-        IdentityResult resultado = await userManager.CreateAsync(user, viewModel.Senha);
+        IdentityResult resultado =
+            await userManager.CreateAsync(
+                user,
+                viewModel.Senha
+            );
 
         if (!resultado.Succeeded)
         {
             foreach (IdentityError erro in resultado.Errors)
-                ModelState.AddModelError(string.Empty, erro.Description);
+            {
+                ModelState.AddModelError(
+                    string.Empty,
+                    erro.Description
+                );
+            }
 
             return View(viewModel);
         }
 
-        await signInManager.SignInAsync(user, isPersistent: false);
+        await signInManager.SignInAsync(
+            user,
+            isPersistent: false
+        );
 
         return RedirectToAction("Index", "Home");
     }
@@ -62,7 +75,8 @@ public sealed class AutenticacaoController(
     }
 
     [HttpPost]
-    public async Task<ActionResult> Entrar(EntrarViewModel viewModel)
+    public async Task<ActionResult> Entrar(
+        EntrarViewModel viewModel)
     {
         if (signInManager.IsSignedIn(User))
             return RedirectToAction("Index", "Home");
@@ -70,12 +84,13 @@ public sealed class AutenticacaoController(
         if (!ModelState.IsValid)
             return View(viewModel);
 
-        Microsoft.AspNetCore.Identity.SignInResult resultado = await signInManager.PasswordSignInAsync(
-            viewModel.Email,
-            viewModel.Senha,
-            viewModel.LembrarMe,
-            lockoutOnFailure: true
-        );
+        Microsoft.AspNetCore.Identity.SignInResult resultado =
+            await signInManager.PasswordSignInAsync(
+                viewModel.Email,
+                viewModel.Senha,
+                viewModel.LembrarMe,
+                lockoutOnFailure: true
+            );
 
         if (resultado.Succeeded)
         {
@@ -87,13 +102,17 @@ public sealed class AutenticacaoController(
 
         if (resultado.IsLockedOut)
         {
-            ModelState.AddModelError(string.Empty,
-                "Conta bloqueada temporariamente. Tente novamente mais tarde.");
+            ModelState.AddModelError(
+                string.Empty,
+                "Conta bloqueada temporariamente. Tente novamente mais tarde."
+            );
         }
         else
         {
-            ModelState.AddModelError(string.Empty,
-                "E-mail ou senha inválidos.");
+            ModelState.AddModelError(
+                string.Empty,
+                "E-mail ou senha inválidos."
+            );
         }
 
         return View(viewModel);

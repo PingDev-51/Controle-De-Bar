@@ -176,6 +176,14 @@ public class ServicoGarconTests
         Mock<IRepositorioContas> repositorioConta = new();
 
         repositorioGarcon
+        .Setup(r => r.SelecionarPorId(garcon.Id))
+        .Returns(garcon);
+
+        repositorioConta
+            .Setup(r => r.SelecionarTodos())
+            .Returns([]);
+
+        repositorioGarcon
             .Setup(r => r.SelecionarPorId(garcon.Id))
             .Returns(garcon);
 

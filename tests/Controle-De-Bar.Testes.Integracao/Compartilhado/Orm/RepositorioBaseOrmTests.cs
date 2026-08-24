@@ -10,17 +10,19 @@ using Controle_De_Bar.Testes.Integracao.Compartilhado.Identity;
 using FizzWare.NBuilder;
 using Microsoft.EntityFrameworkCore;
 using GeradorDeProvas.Infra.Compartilhado.Orm;
+using ControleDeBar.Infra.Modulos.ModuloGarcon;
+using ControleDeBar.Dominio.Modulos.ModuloGarcon;
 
 namespace ControleDeBar.Testes.Integracao.Compartilhado.Orm;
 
 public abstract class RepositorioBaseEmOrmTests
 {
     protected ControleDeBarDbContext dbContext = null!;
-
     protected RepositorioProdutoEmOrm repositorioProduto = null!;
     protected RepositorioMesaEmOrm repositorioMesa = null!;
     protected RepositorioContaEmOrm repositorioConta = null!;
     protected RepositorioPedidoEmOrm repositorioPedido = null!;
+    protected RepositorioGarconEmOrm repositorioGarcon = null!;
 
     protected Guid userId;
 
@@ -43,6 +45,9 @@ public abstract class RepositorioBaseEmOrmTests
         repositorioPedido =
             new RepositorioPedidoEmOrm(dbContext);
 
+        repositorioGarcon =
+            new RepositorioGarconEmOrm(dbContext);
+
         ConfigurarNBuilder();
     }
 
@@ -64,12 +69,16 @@ public abstract class RepositorioBaseEmOrmTests
             repositorioPedido.Cadastrar
         );
 
+        BuilderSetup.SetCreatePersistenceMethod<Garcon>(
+            repositorioGarcon.Cadastrar
+        );
+
         BuilderSetup.SetCreatePersistenceMethod<IList<Produto>>(
-            produtos =>
+            (Action<IList<Produto>>)(produtos =>
             {
                 foreach (Produto produto in produtos)
-                    repositorioProduto.Cadastrar(produto);
-            }
+                    this.repositorioProduto.Cadastrar(produto);
+            })
         );
 
         BuilderSetup.SetCreatePersistenceMethod<IList<Mesa>>(
@@ -94,6 +103,14 @@ public abstract class RepositorioBaseEmOrmTests
                 foreach (Pedido pedido in pedidos)
                     repositorioPedido.Cadastrar(pedido);
             }
+        );
+
+        BuilderSetup.SetCreatePersistenceMethod<IList<Garcon>>(
+            (Action<IList<Garcon>>)(garcons =>
+            {
+                foreach (Garcon g in garcons)
+                    this.repositorioGarcon.Cadastrar(g);
+            })
         );
     }
 

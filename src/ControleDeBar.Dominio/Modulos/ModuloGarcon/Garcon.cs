@@ -26,7 +26,7 @@ public class Garcon : EntidadeBase<Garcon>, IEntidadeDoUsuario
         List<string> erros = new();
 
         if (string.IsNullOrWhiteSpace(Nome))
-            erros.Add("Este campo Nome precisa ser preenchido");
+            erros.Add("O Campo Nome precisa ser preenchido;");
         else if (Nome.Length < 2)
             erros.Add("O campo Nome precisa ter mais que 2 caracteres");
         else if (Nome.Length > 100)
